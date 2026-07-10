@@ -1,1 +1,52 @@
-
+[
+  {
+    "id": 5,
+    "fecha": "2026-07-10",
+    "categoria": "Proyecto",
+    "titulo": "¡Mi coche eléctrico ya está en YouTube!",
+    "imagen": "coche-electrico.webp",
+    "youtube": "https://youtu.be/xxxxxxxx",
+    "fijado": true,
+    "texto": "Después de muchos meses de trabajo, por fin está disponible el video del coche eléctrico que construí desde cero. Fue uno de los proyectos más largos que he realizado y estoy muy contento con el resultado. Espero que disfruten el video tanto como yo disfruté construirlo."
+  },
+  {
+    "id": 4,
+    "fecha": "2026-07-07",
+    "categoria": "Importante",
+    "titulo": "Actualización sobre el usuario que robaba mis videos",
+    "imagen": null,
+    "youtube": null,
+    "fijado": false,
+    "texto": "Quiero agradecer a toda la comunidad por el enorme apoyo. Gracias a las personas que reportaron la cuenta, el usuario dejó de publicar mi contenido. Todo parece indicar que el problema quedó resuelto."
+  },
+  {
+    "id": 3,
+    "fecha": "2026-07-05",
+    "categoria": "Importante",
+    "titulo": "Usuario robando mis videos en TikTok",
+    "imagen": null,
+    "youtube": null,
+    "fijado": false,
+    "texto": "Hace unos días descubrí una cuenta que estaba descargando mis videos de YouTube para volver a subirlos como si fueran propios. Si llegan a verla, les agradecería mucho que la reportaran."
+  },
+  {
+    "id": 2,
+    "fecha": "2026-07-02",
+    "categoria": "Canal",
+    "titulo": "Se viene un proyecto muy especial",
+    "imagen": "proyecto-secreto.webp",
+    "youtube": null,
+    "fijado": false,
+    "texto": "Durante las últimas semanas he estado trabajando en un proyecto que llevaba mucho tiempo queriendo realizar. Todavía no puedo mostrar mucho, pero estoy seguro de que les va a gustar."
+  },
+  {
+    "id": 1,
+    "fecha": "2026-06-28",
+    "categoria": "Comunidad",
+    "titulo": "Bienvenidos a la sección de Comunicados",
+    "imagen": null,
+    "youtube": null,
+    "fijado": false,
+    "texto": "A partir de hoy utilizaré este espacio para compartir noticias, avances de proyectos, fotografías, anuncios y cualquier novedad relacionada con el canal."
+  }
+]
