@@ -6,7 +6,7 @@
     "titulo": "¡Mi coche eléctrico ya está en YouTube!",
     "imagen": "coche-electrico.webp",
     "youtube": "https://youtu.be/xxxxxxxx",
-    "fijado": true,
+    "fijado": false,
     "texto": "Después de muchos meses de trabajo, por fin está disponible el video del coche eléctrico que construí desde cero. Fue uno de los proyectos más largos que he realizado y estoy muy contento con el resultado. Espero que disfruten el video tanto como yo disfruté construirlo."
   },
   {
@@ -46,7 +46,7 @@
     "titulo": "Bienvenidos a mi pagina web",
     "imagen": null,
     "youtube": null,
-    "fijado": false,
+    "fijado": true,
     "texto": "Muy buenos dias, les comunico que estare usando este espacio para compartir novedades, noticias, proyectos, información... etc. Porque, que es un programador silvestre sin su propia pagina web? Bienvenidos sean todos a mi nueva pagina web."
   }
 ]
