@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "titulo": "Proyecto Acceso 614",
+        "descripcion": "Sistema de control de acceso mediante ESP32 con comunicación HTTPS y panel web para administración remota.",
+        "tecnologias": [
+            "ESP32",
+            "HTTPS",
+            "PHP",
+            "MySQL"
+        ],
+        "imagenes": [
+            "001.jpg",
+            "002.jpg"
+        ]
+    },
+    {
+        "id": 2,
+        "titulo": "Proyecto Control de Bombeo",
+        "descripcion": "Sistema IoT para monitoreo y control remoto de bombas hidráulicas desde cualquier lugar mediante aplicación web.",
+        "tecnologias": [
+            "ESP32",
+            "Firebase",
+            "WiFi"
+        ],
+        "imagenes": [
+            "003.jpg"
+        ]
+    }
+]
