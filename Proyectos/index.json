@@ -10,5 +10,11 @@
     "titulo": "Timbre para mi cabaña",
     "subtitulo": "Proyecto para evitar que la gente tenga que gritarme al visitarme",
     "archivo_contenido": "timbre-cabana.md"
+  },
+  {
+    "id": "monitoreo-solar",
+    "titulo": "Monitoreo de energía solar",
+    "subtitulo": "Bitácora de rendimiento y autonomía de mi banco de baterías en el bosque",
+    "archivo_contenido": "monitoreo-solar.md"
   }
 ]
