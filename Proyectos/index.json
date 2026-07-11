@@ -16,5 +16,11 @@
     "titulo": "Monitoreo de energía solar",
     "subtitulo": "Bitácora de rendimiento y autonomía de mi banco de baterías en el bosque",
     "archivo_contenido": "monitoreo-solar.md"
+  },
+  {
+    "id": "monitoreo-bateria-solar",
+    "titulo": "Monitoreo de bateria solar",
+    "subtitulo": "Monitoreo y gestion de energia almacenada en bateria litio de 10kwh",
+    "archivo_contenido": "monitoreo-bateria-solar.md"
   }
 ]
