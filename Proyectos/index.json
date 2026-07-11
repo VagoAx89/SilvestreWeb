@@ -1,0 +1,14 @@
+[
+  {
+    "id": "saludo-cabana",
+    "titulo": "Proyecto de saludo a mi cabaña",
+    "subtitulo": "Este proyecto fue hecho para que los usuarios interaccionen con mi cabaña",
+    "archivo_contenido": "saludo-cabana.md"
+  },
+  {
+    "id": "timbre-cabana",
+    "titulo": "Timbre para mi cabaña",
+    "subtitulo": "Proyecto para evitar que la gente tenga que gritarme al visitarme",
+    "archivo_contenido": "timbre-cabana.md"
+  }
+]
