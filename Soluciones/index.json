@@ -1,9 +1,8 @@
 [
   {
     "id": "solucion-agua-arroyo",
-    "titulo": "Abastecimiento Hidráulico Autónomo: Superando 150 metros de Desnivel Solar",
-    "categoria": "Agua y Sustentabilidad",
-    "descripcion": "El reto de llevar agua desde el fondo del arroyo hasta la cumbre de la cabaña. Detalles técnicos sobre el dimensionamiento del sistema Kolos, el arreglo fotovoltaico de 2.95 kW y la obra civil necesaria para domar la gravedad en el bosque.",
-    "archivo_md": "Soluciones/agua-arroyo.md"
+    "titulo": "Abastecimiento Hidráulico Autónomo: Superando 150 metros de Desnivel",
+    "subtitulo": "El reto de llevar agua desde el fondo del arroyo hasta la cumbre de la cabaña. Detalles técnicos sobre el dimensionamiento del sistema Kolos, el arreglo fotovoltaico de 2.95 kW y la obra civil necesaria para domar la gravedad en el bosque.",
+    "archivo_contenido": "Soluciones/agua-arroyo.md"
   }
 ]
