@@ -46,7 +46,7 @@
     "titulo": "Bienvenidos a mi pagina web",
     "imagen": null,
     "youtube": null,
-    "fijado": true,
-    "texto": "Muy buenos dias, les comunico que estare usando este espacio para compartir novedades, noticias, proyectos, información... etc. Porque, que es un programador silvestre sin su propia pagina web? Bienvenidos sean todos a mi nueva pagina web."
+    "fijado": false,
+    "texto": "Muy buenos días a todos. Decidí abrir esta ventana al mundo para compartir mis proyectos, ideas, novedades y todo lo que voy descubriendo en el camino del desarrollo. Porque un verdadero programador silvestre necesita su propio territorio en la web para crear. Gracias por visitarme, ¡están en su casa!"
   }
 ]
