@@ -1,261 +1,47 @@
-````md
-# Integrando mi Batería Solar al Ecosistema de la Cabaña: Ingeniería Inversa, Tráfico de Red y un Dashboard Propio
+La llegada de la batería **Felicity Solar de 10 kWh** marcó un antes y un después dentro de la infraestructura energética de la cabaña. Además de almacenar toda la energía producida por los paneles solares, incorporaba una aplicación oficial para teléfonos móviles desde la cual era posible consultar en tiempo real prácticamente todos los parámetros del sistema: porcentaje de carga, potencia de entrada y salida, voltajes, corrientes y el estado general del banco de baterías.
 
-Uno de los mayores placeres de construir una cabaña **off-grid** es que cada sistema termina formando parte de un ecosistema mucho más grande.
+Durante los primeros días utilicé esa aplicación constantemente. Era fascinante observar cómo la batería respondía a los cambios de consumo o cómo aumentaba su nivel de carga conforme avanzaba la mañana y los paneles comenzaban a producir más energía. Sin embargo, muy pronto apareció un problema que probablemente cualquier persona dedicada a la automatización terminaría encontrando.
 
-No basta con instalar una batería, un inversor o un arreglo de paneles solares; el verdadero objetivo es que **todos los dispositivos hablen entre sí** y que la información esté disponible desde un único lugar.
+No quería depender de una aplicación externa para consultar información que pertenecía a mi propia infraestructura.
 
-Ese era exactamente el siguiente paso en la evolución de mi sistema de domótica.
+Mi cabaña ya contaba con un dashboard desarrollado completamente por mí, desde donde podía supervisar sensores, controlar dispositivos y visualizar distintos elementos del ecosistema de domótica. Tener que sacar el teléfono únicamente para conocer el estado de la batería rompía por completo esa integración.
 
----
+El objetivo se volvió muy claro: descubrir cómo obtenía la aplicación oficial esa información e incorporarla directamente dentro de mi propio sistema.
 
-## El Nuevo Integrante del Sistema
+![Aplicación oficial mostrando la información de la batería](../Images/Proyectos/005.jpg)
 
-> 📷 **Fotografía sugerida:** `005.jpg` — La batería Felicity Solar recién instalada.
+La primera pista apareció al conectar la batería a la red Wi-Fi de la cabaña. Una vez enlazada a la red local, la aplicación dejó de comunicarse mediante Bluetooth y comenzó a intercambiar información utilizando la infraestructura de red existente. Eso significaba que toda la comunicación estaba viajando por mi propia red, y por lo tanto podía ser observada.
 
-Hace algún tiempo adquirí una batería **Felicity Solar de 10 kWh**, encargada de almacenar toda la energía producida por los paneles solares de la cabaña.
+Para analizar ese tráfico utilicé una herramienta llamada **PCAPdroid**, capaz de capturar todas las conexiones realizadas por una aplicación Android. La idea era muy sencilla: si la aplicación mostraba la información de la batería, necesariamente debía solicitarla a través de algún protocolo de red.
 
-Desde el primer momento quedé impresionado.
+![Captura del tráfico analizado mediante PCAPdroid](../Images/Proyectos/006.jpg)
 
-No solamente por su capacidad, sino porque el fabricante incluía una aplicación móvil capaz de mostrar prácticamente toda la información del sistema en tiempo real.
+Después de varios minutos observando las peticiones comenzó a aparecer un patrón muy claro. La aplicación realizaba solicitudes HTTP hacia la dirección IP asignada a la batería dentro de la red local. Entre todos los endpoints existía uno especialmente interesante llamado **realtInfo**, el cual devolvía un documento JSON con prácticamente toda la información que aparecía en la interfaz oficial.
 
-Entre los datos disponibles se encontraban:
+Aquel descubrimiento simplificó enormemente el proyecto.
+
+No era necesario desarrollar ingeniería inversa sobre un protocolo propietario ni interceptar comunicaciones cifradas. Bastaba con realizar una petición HTTP GET exactamente igual a la que ejecutaba la aplicación oficial para obtener todos los datos necesarios.
+
+![Respuesta JSON obtenida desde el endpoint realtInfo](../Images/Proyectos/007.jpg)
+
+Con el JSON en mis manos, el resto del trabajo consistió únicamente en interpretar correctamente cada uno de sus campos. Escribí una función encargada de procesar la respuesta y convertir esos valores en información fácilmente consumible por el dashboard de la cabaña.
+
+Entre los datos integrados se encuentran:
 
 - Estado de carga (SOC).
 - Potencia de carga.
 - Potencia de descarga.
-- Voltaje.
-- Corriente.
-- Estado general del sistema.
-- Alarmas.
-- Diversos parámetros internos.
+- Flujo instantáneo de energía.
+- Voltajes.
+- Corrientes.
+- Estado general de operación.
 
-Era exactamente la información que siempre había querido conocer.
+Toda esta información comenzó a actualizarse automáticamente dentro de la interfaz web que utilizo diariamente para supervisar la cabaña.
 
----
+![Nueva sección del dashboard mostrando la batería integrada](../Images/Proyectos/008.jpg)
 
-## El Problema
+Lo más interesante de este proyecto es que la información dejó de estar confinada dentro de una aplicación del fabricante. Al formar parte de mi propio ecosistema, ahora puede utilizarse para generar automatizaciones, registrar históricos, construir gráficas de consumo o tomar decisiones inteligentes basadas en el estado energético de la instalación.
 
-La emoción duró poco.
+En otras palabras, la batería dejó de ser un dispositivo aislado y pasó a convertirse en un componente completamente integrado dentro del sistema de domótica de la cabaña.
 
-Cada vez que quería revisar el estado de la batería tenía que hacer exactamente el mismo proceso:
-
-- sacar el teléfono;
-- abrir la aplicación;
-- esperar a que conectara;
-- navegar hasta la pantalla correcta.
-
-No era difícil.
-
-Simplemente era incómodo.
-
-Y había un problema aún mayor.
-
-Toda la domótica de la cabaña ya contaba con un **dashboard web** desarrollado completamente por mí.
-
-Desde ese panel podía controlar iluminación, sensores, sistemas automáticos y distintos dispositivos distribuidos por toda la propiedad.
-
-La batería era el único componente importante que seguía viviendo dentro de una aplicación cerrada.
-
-No quería depender de ella.
-
-Quería que la información apareciera directamente dentro de mi propio ecosistema.
-
----
-
-# El Objetivo
-
-La meta era sencilla de describir, aunque no tanto de lograr.
-
-Quería crear una nueva sección dentro de mi dashboard donde pudiera visualizar en tiempo real información como:
-
-- porcentaje de carga;
-- potencia entrando a la batería;
-- potencia saliendo;
-- estado actual;
-- carga o descarga;
-- indicadores generales del sistema.
-
-Todo utilizando una interfaz diseñada completamente por mí.
-
-Pero primero había que responder una pregunta.
-
-**¿Cómo obtenía esa información la aplicación oficial?**
-
----
-
-# La Investigación
-
-> 📷 **Fotografía sugerida:** `006.jpg` — Captura de la aplicación oficial mostrando la información de la batería.
-
-Las aplicaciones no generan información por arte de magia.
-
-Si el teléfono mostraba esos datos, significaba que en algún lugar existía una comunicación entre la aplicación y la batería.
-
-Lo único que tenía que hacer era descubrir cómo ocurría.
-
----
-
-# Conectando la Batería a la Red
-
-El primer paso consistió en conectar la batería a la red Wi-Fi de la cabaña utilizando el procedimiento oficial del fabricante.
-
-Una vez conectada, la aplicación dejó de comunicarse mediante Bluetooth y comenzó a hacerlo a través de la red local.
-
-Eso era exactamente lo que necesitaba.
-
-Ahora todo el tráfico pasaba por mi infraestructura.
-
-Y eso significaba que podía observarlo.
-
----
-
-# Espiando la Comunicación
-
-Aquí comenzó la parte divertida.
-
-En lugar de intentar adivinar cómo funcionaba el protocolo, decidí observar directamente la conversación entre la aplicación y la batería.
-
-Para ello utilicé una aplicación llamada **PCAPdroid**, una herramienta que permite capturar y analizar todo el tráfico de red generado por otras aplicaciones instaladas en Android.
-
-> 📷 **Fotografía sugerida:** `007.jpg` — Captura de PCAPdroid mostrando las conexiones de red.
-
-Cada petición, cada respuesta y cada paquete podían verse en tiempo real.
-
-Era como colocar un micrófono entre dos dispositivos que estaban conversando.
-
-Solo había que prestar atención.
-
----
-
-# El Descubrimiento
-
-Después de analizar varias solicitudes comenzó a aparecer un patrón.
-
-La aplicación realizaba peticiones HTTP hacia la dirección IP de la batería.
-
-Cada cierto tiempo consultaba distintos endpoints para actualizar la información mostrada en pantalla.
-
-Y entonces apareció el que estaba buscando.
-
-Un endpoint llamado:
-
-```text
-realtInfo
-```
-
-Bastaba realizar un simple **GET** para obtener una enorme cantidad de información en formato JSON.
-
-Sin autenticaciones complicadas.
-
-Sin cifrado adicional.
-
-Sin protocolos propietarios.
-
-Simplemente una petición HTTP.
-
-Fue uno de esos momentos en los que todo el proyecto cambia por completo.
-
----
-
-# El JSON que lo Cambió Todo
-
-> 📷 **Fotografía sugerida:** `008.jpg` — Captura del JSON recibido desde la batería.
-
-La respuesta incluía prácticamente todo lo que la aplicación oficial mostraba en pantalla.
-
-Entre muchos otros datos se encontraban:
-
-- porcentaje de batería;
-- potencia de carga;
-- potencia de descarga;
-- voltajes;
-- corrientes;
-- estados internos;
-- indicadores del BMS;
-- parámetros de funcionamiento.
-
-En realidad, la aplicación oficial no hacía nada extraordinario.
-
-Simplemente tomaba ese JSON y lo dibujaba de una manera agradable.
-
-Ahora yo podía hacer exactamente lo mismo.
-
----
-
-# Integrando la Información al Dashboard
-
-Con el endpoint descubierto, el resto del trabajo fue mucho más sencillo.
-
-Mi servidor comenzó a consultar periódicamente la batería mediante peticiones HTTP.
-
-Cada respuesta era procesada por una función encargada de interpretar el JSON.
-
-Después de convertir todos esos valores a un formato más amigable, la información era enviada directamente a mi interfaz web.
-
-Ya no dependía de la aplicación oficial.
-
-Ahora todo aparecía integrado dentro del dashboard de la cabaña.
-
-> 📷 **Fotografía sugerida:** `009.jpg` — Nueva pestaña del dashboard mostrando el estado de la batería.
-
----
-
-# Una Interfaz Pensada para Mí
-
-La ventaja de tener acceso directo a los datos es que ahora puedo presentarlos exactamente como necesito.
-
-Ya no estoy limitado al diseño del fabricante.
-
-Puedo decidir qué indicadores son importantes, qué gráficas mostrar y cómo organizar la información.
-
-Entre los datos disponibles ahora se encuentran:
-
-- Estado de carga (SOC).
-- Potencia de entrada.
-- Potencia de salida.
-- Flujo energético en tiempo real.
-- Estado de carga o descarga.
-- Información general del sistema.
-- Indicadores adicionales para futuras automatizaciones.
-
-Y como todo forma parte del mismo dashboard, puedo visualizar el estado completo de la cabaña desde un único lugar.
-
----
-
-# Más Allá de Mostrar Datos
-
-Este proyecto no consistía únicamente en copiar la información de una aplicación.
-
-El verdadero objetivo era integrar la batería al ecosistema inteligente de la cabaña.
-
-Ahora que los datos están disponibles dentro de mi propio software, puedo utilizarlos para crear nuevas automatizaciones.
-
-Por ejemplo:
-
-- limitar ciertos consumos cuando el SOC sea bajo;
-- generar alertas personalizadas;
-- registrar históricos;
-- construir gráficas de rendimiento;
-- correlacionar la energía almacenada con la producción solar y el consumo de la cabaña.
-
-En otras palabras, la batería dejó de ser un dispositivo aislado para convertirse en un componente más del sistema de domótica.
-
----
-
-# Conclusión
-
-Muchas veces la información que necesitamos ya existe.
-
-El verdadero reto consiste en descubrir cómo obtenerla.
-
-En este caso, bastó con observar cuidadosamente la comunicación entre la aplicación oficial y la batería para descubrir que toda la información estaba disponible mediante una sencilla API local.
-
-A partir de ese momento, integrar la batería al ecosistema de la cabaña fue simplemente cuestión de escribir el software adecuado.
-
-Hoy ya no necesito abrir la aplicación del fabricante para saber cómo se encuentra mi sistema de almacenamiento.
-
-Toda la información aparece directamente en el dashboard que desarrollé para administrar la cabaña, convirtiendo otro dispositivo comercial en una pieza completamente integrada dentro de mi propio ecosistema tecnológico.
-
-Y lo mejor de todo es que este es solo el comienzo.
-````
+Aunque desde el punto de vista técnico el proyecto consistió únicamente en observar una comunicación HTTP y consumir una API ya existente, el resultado fue mucho más importante que eso. Ahora toda la información crítica del sistema energético se encuentra centralizada en un único dashboard, eliminando la dependencia de aplicaciones externas y permitiendo que el almacenamiento de energía forme parte del mismo ecosistema que controla iluminación, sensores, automatizaciones y el resto de dispositivos distribuidos por toda la cabaña.
