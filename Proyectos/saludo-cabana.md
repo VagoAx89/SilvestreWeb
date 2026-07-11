@@ -2,7 +2,7 @@ La idea surgió al pensar en una forma sencilla de que cualquier visitante de la
 
 Para desacoplar la aplicación web de la infraestructura local decidí utilizar Firebase como intermediario. La aplicación web únicamente tiene la responsabilidad de registrar un nuevo documento en una colección cuando el usuario presiona el botón "Saludar a Silvestre". Cada registro representa un evento de saludo pendiente de procesar.
 
-![Esquema de la conexión inalámbrica y flujo del saludo desde la web hasta el LED final](../Images/Proyectos/001.png)
+![Esquema de la conexión inalámbrica y flujo del saludo desde la web hasta el LED final](../Images/Proyectos/001.jpg)
 
 La Orange Pi mantiene un listener permanente sobre la colección de saludos en Firebase utilizando la API de tiempo real de Firestore. Cuando detecta la creación de un nuevo documento, interpreta ese evento como un saludo pendiente y envía un comando a través de una interfaz UART hacia un ESP32 que actúa como gateway de la red local.
 
