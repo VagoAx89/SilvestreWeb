@@ -4,6 +4,10 @@ Para desacoplar la aplicación web de la infraestructura local decidí utilizar 
 
 ![Esquema de la conexión inalámbrica y flujo del saludo desde la web hasta el LED final](../Images/Proyectos/001.jpg)
 
+Al analizar ese diagrama, probablemente surja la pregunta Porque razon ha creado una infraestructura compleja para una tarea tan sencilla? La respuesta es simple, toda esa infraestructura ya 
+estaba creada, es asi como la Orange Pi (cerebro de la cabaña) mantiene el control con los dispositivos que le rodean, con el Sensei Link, es su "antena", entonces para este proyecto
+solo se agrego un nodo final (Esp32 actuador) a la infraestructura ya creada.
+
 La Orange Pi mantiene un listener permanente sobre la colección de saludos en Firebase utilizando la API de tiempo real de Firestore. Cuando detecta la creación de un nuevo documento, interpreta ese evento como un saludo pendiente y envía un comando a través de una interfaz UART hacia un ESP32 que actúa como gateway de la red local.
 
 Este ESP32 recibe el comando serial y lo retransmite mediante ESP-NOW hacia un segundo ESP32 remoto. Elegí ESP-NOW porque necesitaba una comunicación inalámbrica de baja latencia, sin depender de la infraestructura Wi-Fi para los dispositivos finales y con un protocolo ligero para el intercambio de mensajes.
