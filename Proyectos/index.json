@@ -4,19 +4,7 @@
     "titulo": "Proyecto de saludo a mi cabaña",
     "subtitulo": "Este proyecto fue hecho para que los usuarios interaccionen con mi cabaña",
     "archivo_contenido": "saludo-cabana.md"
-  },
-  {
-    "id": "timbre-cabana",
-    "titulo": "Timbre para mi cabaña",
-    "subtitulo": "Proyecto para evitar que la gente tenga que gritarme al visitarme",
-    "archivo_contenido": "timbre-cabana.md"
-  },
-  {
-    "id": "monitoreo-solar",
-    "titulo": "Monitoreo de energía solar",
-    "subtitulo": "Bitácora de rendimiento y autonomía de mi banco de baterías en el bosque",
-    "archivo_contenido": "monitoreo-solar.md"
-  },
+  }, 
   {
     "id": "monitoreo-bateria-solar",
     "titulo": "Monitoreo de bateria solar",
