@@ -38,7 +38,7 @@ Entre los datos integrados se encuentran:
 
 Toda esta información comenzó a actualizarse automáticamente dentro de la interfaz web que utilizo diariamente para supervisar la cabaña.
 
-![Nueva sección del dashboard mostrando la batería integrada](../Images/Proyectos/008.jpg)
+![Nueva sección del dashboard mostrando la batería integrada](../Images/Proyectos/dashboard.jpg)
 
 Lo más interesante de este proyecto es que la información dejó de estar confinada dentro de una aplicación del fabricante. Al formar parte de mi propio ecosistema, ahora puede utilizarse para generar automatizaciones, registrar históricos, construir gráficas de consumo o tomar decisiones inteligentes basadas en el estado energético de la instalación.
 
