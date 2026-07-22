@@ -14,9 +14,7 @@ La primera pista apareció al conectar la batería a la red Wi-Fi de la cabaña.
 
 Para analizar ese tráfico utilicé una herramienta llamada **PCAPdroid**, capaz de capturar todas las conexiones realizadas por una aplicación Android. La idea era muy sencilla: si la aplicación mostraba la información de la batería, necesariamente debía solicitarla a través de algún protocolo de red.
 
-![Captura del tráfico analizado mediante PCAPdroid](../Images/Proyectos/006.jpg)
-
-Después de varios minutos observando las peticiones comenzó a aparecer un patrón muy claro. La aplicación realizaba solicitudes HTTP hacia la dirección IP asignada a la batería dentro de la red local. Entre todos los endpoints existía uno especialmente interesante llamado **realtInfo**, el cual devolvía un documento JSON con prácticamente toda la información que aparecía en la interfaz oficial.
+Después de varios minutos observando las peticiones comenzó a aparecer un patrón muy claro. La aplicación realizaba solicitudes HTTP hacia la dirección IP asignada a la batería dentro de la red local. Entre todos los endpoints existía uno especialmente interesante llamado **get real infor**, el cual devolvía un documento JSON con prácticamente toda la información que aparecía en la interfaz oficial.
 
 Aquel descubrimiento simplificó enormemente el proyecto.
 
