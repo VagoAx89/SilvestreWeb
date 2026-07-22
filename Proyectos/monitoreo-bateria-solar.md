@@ -20,7 +20,7 @@ Aquel descubrimiento simplificó enormemente el proyecto.
 
 No era necesario desarrollar ingeniería inversa sobre un protocolo propietario ni interceptar comunicaciones cifradas. Bastaba con realizar una petición HTTP GET exactamente igual a la que ejecutaba la aplicación oficial para obtener todos los datos necesarios.
 
-![Respuesta JSON obtenida desde el endpoint realtInfo](../Images/Proyectos/jsonBatt.jpg)
+![Respuesta JSON obtenida desde el endpoint realtInfo](../Images/Proyectos/jsonBatt.png)
 
 Con el JSON en mis manos, el resto del trabajo consistió únicamente en interpretar correctamente cada uno de sus campos. Escribí una función encargada de procesar la respuesta y convertir esos valores en información fácilmente consumible por el dashboard de la cabaña.
 
