@@ -38,8 +38,10 @@ Toda esta información comenzó a actualizarse automáticamente dentro de la int
 
 ![Nueva sección del dashboard mostrando la batería integrada](../Images/Proyectos/dashboard.jpg)
 
-Lo más interesante de este proyecto es que la información dejó de estar confinada dentro de una aplicación del fabricante. Al formar parte de mi propio ecosistema, ahora puede utilizarse para generar automatizaciones, registrar históricos, construir gráficas de consumo o tomar decisiones inteligentes basadas en el estado energético de la instalación.
+Lo más interesante de este proyecto es que la batería dejó de ser un elemento aislado dentro de la instalación y pasó a formar parte de mi propio ecosistema de monitoreo y domótica. Ahora toda su información puede visualizarse desde el mismo dashboard que controla el resto de la cabaña, permitiendo centralizar el estado del sistema energético en un solo lugar.
 
-En otras palabras, la batería dejó de ser un dispositivo aislado y pasó a convertirse en un componente completamente integrado dentro del sistema de domótica de la cabaña.
+Sin embargo, este proyecto representa solo una parte del objetivo final. El siguiente paso será integrar también el inversor híbrido al mismo dashboard, para visualizar en tiempo real la energía que producen los paneles solares, el consumo de la cabaña, el estado de las baterías y el flujo completo de energía de la instalación.
 
-Aunque desde el punto de vista técnico el proyecto consistió únicamente en observar una comunicación HTTP y consumir una API ya existente, el resultado fue mucho más importante que eso. Ahora toda la información crítica del sistema energético se encuentra centralizada en un único dashboard, eliminando la dependencia de aplicaciones externas y permitiendo que el almacenamiento de energía forme parte del mismo ecosistema que controla iluminación, sensores, automatizaciones y el resto de dispositivos distribuidos por toda la cabaña.
+Cuando esa integración esté terminada, el dashboard se convertirá en un monitor solar completamente desarrollado por mí, sin depender de aplicaciones de terceros y totalmente integrado con la domótica de la cabaña. Además de visualizar toda la información en un solo lugar, podré utilizar esos datos para crear automatizaciones inteligentes, generar históricos, analizar el rendimiento del sistema y tomar decisiones basadas en el comportamiento energético de la instalación.
+
+Ese será el siguiente proyecto, así que si te interesa ver cómo se construye un sistema de monitoreo solar completamente personalizado, espéralo porque muy pronto lo compartiré.
