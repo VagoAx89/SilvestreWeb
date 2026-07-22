@@ -8,7 +8,7 @@ Mi cabaña ya contaba con un dashboard desarrollado completamente por mí, desde
 
 El objetivo se volvió muy claro: descubrir cómo obtenía la aplicación oficial esa información e incorporarla directamente dentro de mi propio sistema.
 
-![Aplicación oficial mostrando la información de la batería](../Images/Proyectos/005.jpg)
+![Aplicación oficial mostrando la información de la batería](../Images/Proyectos/006.jpg)
 
 La primera pista apareció al conectar la batería a la red Wi-Fi de la cabaña. Una vez enlazada a la red local, la aplicación dejó de comunicarse mediante Bluetooth y comenzó a intercambiar información utilizando la infraestructura de red existente. Eso significaba que toda la comunicación estaba viajando por mi propia red, y por lo tanto podía ser observada.
 
