@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programador Silvestre • Estreno 1 de Agosto</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            /* Tema Oscuro (Predeterminado) */
+            --bg: #12171c;
+            --surface: rgba(26, 34, 42, 0.75);
+            --surface-solid: #182028;
+            --surface-card: rgba(30, 41, 51, 0.6);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-dark: #0284c7;
+            --nature: #4ade80;
+            --nature-glow: rgba(74, 222, 128, 0.2);
+            --line: rgba(226, 232, 240, 0.1);
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            --radius: 1.25rem;
+        }
+
+        [data-theme="light"] {
+            /* Tema Claro Secundario */
+            --bg: #e2e8f0;
+            --surface: rgba(248, 250, 252, 0.85);
+            --surface-solid: #f1f5f9;
+            --surface-card: rgba(255, 255, 255, 0.7);
+            --text: #0f172a;
+            --muted: #475569;
+            --accent: #0284c7;
+            --accent-dark: #0369a1;
+            --nature: #16a34a;
+            --nature-glow: rgba(22, 163, 74, 0.15);
+            --line: rgba(15, 23, 42, 0.1);
+            --shadow: 0 15px 30px rgba(15, 23, 42, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 1rem;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* Fondo dinámico de mallas/brillo */
+
+        .bg-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--nature-glow) 0%, transparent 70%);
+            top: -80px;
+            left: -80px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-glow-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+            bottom: -40px;
+            right: -40px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 580px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 1.8rem 1.5rem;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Botón de cambio de tema */
+
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 38px;
+            height: 38px;
+            background: var(--surface-card);
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s;
+            z-index: 10;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text);
+        }
+
+        /* Avatar e Imagen */
+
+        .avatar-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 0.8rem;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px var(--nature-glow);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--surface-card);
+            border: 1px solid var(--line);
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--nature);
+            margin-bottom: 0.8rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--nature);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--nature);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-sub {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+
+        p.description {
+            font-size: 0.92rem;
+            line-height: 1.45;
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+        }
+
+        /* Bloque de Fecha de Lanzamiento */
+
+        .release-box {
+            display: inline-block;
+            background: var(--surface-solid);
+            border: 1px solid var(--accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.12);
+        }
+
+        .release-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 0.1rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .release-date {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Redes Sociales con SVG Auténtico */
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .social-card {
+            width: 40px;
+            height: 40px;
+            background: var(--surface-card);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .social-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .social-card svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--text);
+        }
+
+        footer {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        /* --- ESTILO PARA EL BOTÓN DE SALUDO Y ESTADOS --- */
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            position: relative;
+            margin-bottom: 1.2rem;
+        }
+
+        .salute-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0f172a;
+            background: linear-gradient(135deg, #38bdf8 0%, #4ade80 100%);
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .salute-button span {
+            transition: transform 0.3s ease;
+        }
+
+        .salute-button:hover:not(:disabled) {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.45);
+        }
+
+        .salute-button:hover:not(:disabled) span {
+            transform: translateX(4px);
+        }
+
+        .salute-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        /* Estado deshabilitado o finalizado */
+
+        .salute-button:disabled {
+            background: rgba(51, 65, 85, 0.8);
+            color: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: none !important;
+        }
+
+        .salute-button.completed {
+            background: var(--surface-card);
+            color: var(--nature);
+            border: 1px solid var(--nature);
+            box-shadow: 0 0 12px var(--nature-glow);
+            cursor: default;
+        }
+
+        /* Spinner de carga */
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #38bdf8;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Texto de Estado */
+
+        .salute-status {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: #38bdf8;
+            min-height: 1.1rem;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .salute-status span {
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* Toast de Respuesta - Modificado para no interferir con clicks */
+
+        .salute-toast {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translate(-50%, 1.5rem);
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            width: max-content;
+            max-width: calc(100% - 2rem);
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--line);
+            border-radius: 0.9rem;
+            background: color-mix(in srgb, var(--surface-solid) 92%, transparent);
+            box-shadow: var(--shadow);
+            color: var(--text);
+            font-size: 0.85rem;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none !important;
+            /* Evita bloquear interacciones */
+            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            backdrop-filter: blur(20px);
+            isolation: isolate;
+        }
+
+        .salute-toast.is-visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .progress-container {
+            margin: 2.5rem 0;
+            padding: 1.8rem;
+            background: var(--surface-solid-2);
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            justify-self: center;
+            width: 60%;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .progress-bar-wrapper {
+            height: 14px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 9999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 92%;
+            background: linear-gradient(90deg, var(--nature), #4ade80);
+            border-radius: 9999px;
+            position: relative;
+            transition: width 2s ease;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-150%);
+            }
+
+            100% {
+                transform: translateX(400%);
+            }
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.8rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--nature);
+        }
+
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 1.5rem 1rem 1.2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="container">
+        <div class="glass-card">
+
+            <!-- Toggle de Tema -->
+            <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+                <svg id="themeIcon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0zM18.36 7.05l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c.39.39.39 1.03 0 1.41s1.03-.39-1.41 0z" />
+                </svg>
+            </button>
+
+            <!-- Foto de Perfil desde tu repositorio de GitHub -->
+            <div class="avatar-wrapper">
+                <img src="https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/main/Images/me.jpg"
+                    alt="Programador Silvestre" class="avatar-img">
+            </div>
+
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>DESARROLLANDO PROYECTO</span>
+            </div>
+
+            <h1>Programador Silvestre</h1>
+            <div class="brand-sub">&lt;code, hardware & nature /&gt;</div>
+
+            <p class="description">
+                Construyendo soluciones de software, automatización e infraestructura local. Preparando la plataforma
+                oficial.
+            </p>
+
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Creando la experiencia...</span>
+                    <span><strong>92%</strong></span>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="progress-text">¡Casi listo! 🔥</div>
+            </div>
+
+            <div class="hero-actions">
+                <button id="salute-button" class="button button--primary salute-button" type="button"
+                    aria-describedby="salute-status">
+                    Saluda a Silvestre <span>→</span>
+                </button>
+
+                <!-- Elementos indispensables para que JS no falle -->
+                <div id="salute-status" class="salute-status"></div>
+                <div id="salute-toast" class="salute-toast">Programador Silvestre ha recibido y respondido tu saludo
+                    desde la montaña! Gracias!</div>
+            </div>
+
+            <!-- Bloque Destacado de Fecha -->
+            <div class="release-box">
+                <div class="release-label">Gran Estreno</div>
+                <div class="release-date">🗓️ 1 de Agosto</div>
+            </div>
+
+            <!-- Redes Sociales / Enlaces SVG -->
+            <div class="social-links">
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@programadorsilvestre" target="_blank" class="social-card"
+                    title="YouTube">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/ProgramadorSilvestre/" target="_blank" class="social-card"
+                    title="Instagram">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@programador.silve" target="_blank" class="social-card" title="TikTok">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.85.12V9.33a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V8.71a8.23 8.23 0 0 0 4.92 1.6V6.86a4.85 4.85 0 0 1-1-.17z" />
+                    </svg>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/people/Programador-Silvestre/61581705030547/" target="_blank"
+                    class="social-card" title="Facebook">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+
+        <footer>
+            © 2026 • Programador Silvestre. Todos los derechos reservados.
+        </footer>
+    </div>
+
+    <script>
+        // Manejador de Tema
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        const sunPath = 'M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0zM18.36 7.05l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c.39.39.39 1.03 0 1.41s1.03-.39-1.41 0z';
+        const moonPath = 'M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.2-6 1 1 0 0 0-1.1-1.3 8 8 0 1 1-8.2-11.7 1 1 0 0 0-1-.1z';
+
+        themeToggle.addEventListener('click', () => {
+            const isLight = body.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                body.removeAttribute('data-theme');
+                themeIcon.querySelector('path').setAttribute('d', sunPath);
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.querySelector('path').setAttribute('d', moonPath);
+            }
+        });
+
+        // Observer para ajustar el botón una vez respondido el saludo sin tocar saludos.js
+        const saluteToast = document.getElementById('salute-toast');
+        const saluteBtn = document.getElementById('salute-button');
+
+        const toastObserver = new MutationObserver(() => {
+            if (saluteToast.classList.contains('is-visible')) {
+                saluteBtn.disabled = true;
+                saluteBtn.classList.add('completed');
+                saluteBtn.innerHTML = 'Saludo respondido ✓';
+            }
+        });
+
+        toastObserver.observe(saluteToast, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    </script>
+    <script type="module" src="js/saludos.js"></script>
+</body>
+
+</html>
