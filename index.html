@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programador Silvestre • Estreno 1 de Agosto</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
+         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
 
         :root {
             /* Tema Oscuro (Predeterminado) */
@@ -49,9 +49,8 @@
 
         html,
         body {
-           min-height: 100vh; /* Se asegura de cubrir al menos toda la pantalla */
-    height: 100%;
-    overflow-y: auto;  /* Permite scroll vertical SOLO si el contenido sobrepasa la pantalla */
+            height: 100vh;
+            overflow: hidden;
         }
 
         body {
@@ -496,6 +495,16 @@
 
             h1 {
                 font-size: 1.5rem;
+            }
+
+            .progress-container {
+                margin: 2.5rem 0;
+                padding: 1.8rem;
+                background: var(--surface-solid-2);
+                border-radius: var(--radius);
+                border: 1px solid var(--line);
+                justify-self: center;
+                width: 95%;
             }
         }
     </style>
