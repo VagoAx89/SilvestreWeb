@@ -1,52 +1,14 @@
 [
-  {
-    "id": 5,
-    "fecha": "2026-07-10",
-    "categoria": "Proyecto",
-    "titulo": "¡Mi coche eléctrico ya está en YouTube!",
-    "imagen": "coche-electrico.webp",
-    "youtube": "https://youtu.be/xxxxxxxx",
-    "fijado": false,
-    "texto": "Después de muchos meses de trabajo, por fin está disponible el video del coche eléctrico que construí desde cero. Fue uno de los proyectos más largos que he realizado y estoy muy contento con el resultado. Espero que disfruten el video tanto como yo disfruté construirlo."
-  },
-  {
-    "id": 4,
-    "fecha": "2026-07-07",
-    "categoria": "Importante",
-    "titulo": "Actualización sobre el usuario que robaba mis videos",
-    "imagen": null,
-    "youtube": null,
-    "fijado": false,
-    "texto": "Quiero agradecer a toda la comunidad por el enorme apoyo. Gracias a las personas que reportaron la cuenta, el usuario dejó de publicar mi contenido. Todo parece indicar que el problema quedó resuelto."
-  },
-  {
-    "id": 3,
-    "fecha": "2026-07-05",
-    "categoria": "Importante",
-    "titulo": "Usuario robando mis videos en TikTok",
-    "imagen": null,
-    "youtube": null,
-    "fijado": false,
-    "texto": "Hace unos días descubrí una cuenta que estaba descargando mis videos de YouTube para volver a subirlos como si fueran propios. Si llegan a verla, les agradecería mucho que la reportaran."
-  },
-  {
-    "id": 2,
-    "fecha": "2026-07-02",
-    "categoria": "Canal",
-    "titulo": "Se viene un proyecto muy especial",
-    "imagen": "proyecto-secreto.webp",
-    "youtube": null,
-    "fijado": false,
-    "texto": "Durante las últimas semanas he estado trabajando en un proyecto que llevaba mucho tiempo queriendo realizar. Todavía no puedo mostrar mucho, pero estoy seguro de que les va a gustar."
-  },
-  {
-    "id": 1,
-    "fecha": "2026-06-28",
-    "categoria": "Comunidad",
-    "titulo": "Bienvenidos a mi pagina web",
-    "imagen": null,
-    "youtube": null,
-    "fijado": false,
-    "texto": "Muy buenos días a todos. Decidí abrir esta ventana al mundo para compartir mis proyectos, ideas, novedades y todo lo que voy descubriendo en el camino del desarrollo. Porque un verdadero programador silvestre necesita su propio territorio en la web para crear. Gracias por visitarme, ¡están en su casa!"
-  }
+
+{
+  "id": 1,
+  "fecha": "2026-07-23",
+  "categoria": "Comunidad",
+  "titulo": "¡Bienvenidos a mi página web!",
+  "imagen": null,
+  "youtube": null,
+  "fijado": false,
+  "texto": "¡Qué emoción poder darles la bienvenida a este nuevo espacio! Después de mucho tiempo con la idea rondando en mi cabeza, por fin nace la página oficial de Programador Silvestre. Este será el lugar donde compartiré mis proyectos, experimentos, avances, artículos, fotografías, videos, ideas y todas esas aventuras que surgen entre la programación, la electrónica, la vida en el bosque y la construcción de una vida autosuficiente.\n\nQuiero que este sitio sea mucho más que una página web: quiero que se convierta en un punto de encuentro para quienes disfrutan crear, aprender y construir cosas con sus propias manos. Aquí encontrarán contenido exclusivo, novedades antes que en cualquier otra plataforma y un registro de todo lo que vaya desarrollando con el paso del tiempo.\n\nGracias de corazón por tomarse un momento para visitarme y formar parte de esta nueva etapa. Siéntanse completamente bienvenidos, recorran cada rincón, exploren todo el contenido y vuelvan cuando quieran... porque esta también es su casa. ¡Apenas estamos comenzando y vienen proyectos increíbles!"
+}
+
 ]
