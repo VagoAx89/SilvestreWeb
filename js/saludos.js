@@ -22,7 +22,7 @@ let unsubscribeGreeting;
 function showResponseToast() {
     window.clearTimeout(hideToastTimer);
     toast.classList.add('is-visible');
-    hideToastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 25000);
+    hideToastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 5000);
 }
 
 function finishGreeting() {
