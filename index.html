@@ -49,8 +49,9 @@
 
         html,
         body {
-            height: 100vh;
-            overflow: hidden;
+           min-height: 100vh; /* Se asegura de cubrir al menos toda la pantalla */
+    height: 100%;
+    overflow-y: auto;  /* Permite scroll vertical SOLO si el contenido sobrepasa la pantalla */
         }
 
         body {
