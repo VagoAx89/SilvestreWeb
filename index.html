@@ -1,673 +1,488 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programador Silvestre • Estreno 1 de Agosto</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;700&display=swap');
-
-        :root {
-            /* Tema Oscuro (Predeterminado) */
-            --bg: #12171c;
-            --surface: rgba(26, 34, 42, 0.75);
-            --surface-solid: #182028;
-            --surface-card: rgba(30, 41, 51, 0.6);
-            --text: #e2e8f0;
-            --muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent-dark: #0284c7;
-            --nature: #4ade80;
-            --nature-glow: rgba(74, 222, 128, 0.2);
-            --line: rgba(226, 232, 240, 0.1);
-            --shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            --radius: 1.25rem;
-        }
-
-        [data-theme="light"] {
-            /* Tema Claro Secundario */
-            --bg: #e2e8f0;
-            --surface: rgba(248, 250, 252, 0.85);
-            --surface-solid: #f1f5f9;
-            --surface-card: rgba(255, 255, 255, 0.7);
-            --text: #0f172a;
-            --muted: #475569;
-            --accent: #0284c7;
-            --accent-dark: #0369a1;
-            --nature: #16a34a;
-            --nature-glow: rgba(22, 163, 74, 0.15);
-            --line: rgba(15, 23, 42, 0.1);
-            --shadow: 0 15px 30px rgba(15, 23, 42, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 1rem;
-            transition: background-color 0.4s, color 0.4s;
-        }
-
-        /* Fondo dinámico de mallas/brillo */
-
-        .bg-glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--nature-glow) 0%, transparent 70%);
-            top: -80px;
-            left: -80px;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .bg-glow-2 {
-            position: absolute;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
-            bottom: -40px;
-            right: -40px;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 580px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .glass-card {
-            background: var(--surface);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 2rem 1.8rem 1.5rem;
-            text-align: center;
-            position: relative;
-            width: 100%;
-        }
-
-        /* Botón de cambio de tema */
-
-        .theme-toggle {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 38px;
-            height: 38px;
-            background: var(--surface-card);
-            border: 1px solid var(--line);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s;
-            z-index: 10;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .theme-toggle svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--text);
-        }
-
-        /* Avatar e Imagen */
-
-        .avatar-wrapper {
-            position: relative;
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 0.8rem;
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 20px var(--nature-glow);
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: var(--surface-card);
-            border: 1px solid var(--line);
-            padding: 0.3rem 0.9rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--nature);
-            margin-bottom: 0.8rem;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            background-color: var(--nature);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--nature);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(0.95);
-                opacity: 0.8;
-            }
-
-            50% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(0.95);
-                opacity: 0.8;
-            }
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 0.2rem;
-            letter-spacing: -0.02em;
-        }
-
-        .brand-sub {
-            font-family: 'Fira Code', monospace;
-            color: var(--accent);
-            font-size: 0.85rem;
-            margin-bottom: 0.8rem;
-        }
-
-        p.description {
-            font-size: 0.92rem;
-            line-height: 1.45;
-            color: var(--muted);
-            margin-bottom: 1.2rem;
-        }
-
-        /* Bloque de Fecha de Lanzamiento */
-
-        .release-box {
-            display: inline-block;
-            background: var(--surface-solid);
-            border: 1px solid var(--accent);
-            padding: 0.5rem 1.2rem;
-            border-radius: 10px;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.12);
-        }
-
-        .release-label {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--muted);
-            margin-bottom: 0.1rem;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .release-date {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        /* Redes Sociales con SVG Auténtico */
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .social-card {
-            width: 40px;
-            height: 40px;
-            background: var(--surface-card);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-            text-decoration: none;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .social-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-        }
-
-        .social-card svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--text);
-        }
-
-        footer {
-            margin-top: 1rem;
-            text-align: center;
-            font-size: 0.78rem;
-            color: var(--muted);
-        }
-
-        /* --- ESTILO PARA EL BOTÓN DE SALUDO Y ESTADOS --- */
-
-        .hero-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.4rem;
-            position: relative;
-            margin-bottom: 1.2rem;
-        }
-
-        .salute-button {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.75rem 1.6rem;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #0f172a;
-            background: linear-gradient(135deg, #38bdf8 0%, #4ade80 100%);
-            border: none;
-            border-radius: 9999px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-        }
-
-        .salute-button span {
-            transition: transform 0.3s ease;
-        }
-
-        .salute-button:hover:not(:disabled) {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.45);
-        }
-
-        .salute-button:hover:not(:disabled) span {
-            transform: translateX(4px);
-        }
-
-        .salute-button:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        /* Estado deshabilitado o finalizado */
-
-        .salute-button:disabled {
-            background: rgba(51, 65, 85, 0.8);
-            color: #94a3b8;
-            cursor: not-allowed;
-            box-shadow: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: none !important;
-        }
-
-        .salute-button.completed {
-            background: var(--surface-card);
-            color: var(--nature);
-            border: 1px solid var(--nature);
-            box-shadow: 0 0 12px var(--nature-glow);
-            cursor: default;
-        }
-
-        /* Spinner de carga */
-
-        .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-top-color: #38bdf8;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Texto de Estado */
-
-        .salute-status {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.78rem;
-            color: #38bdf8;
-            min-height: 1.1rem;
-            text-align: center;
-            transition: opacity 0.3s ease;
-        }
-
-        .salute-status span {
-            color: var(--muted);
-            font-weight: 400;
-        }
-
-        /* Toast de Respuesta - Modificado para no interferir con clicks */
-
-        .salute-toast {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translate(-50%, 1.5rem);
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-            width: max-content;
-            max-width: calc(100% - 2rem);
-            padding: 0.8rem 1.2rem;
-            border: 1px solid var(--line);
-            border-radius: 0.9rem;
-            background: color-mix(in srgb, var(--surface-solid) 92%, transparent);
-            box-shadow: var(--shadow);
-            color: var(--text);
-            font-size: 0.85rem;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none !important;
-            /* Evita bloquear interacciones */
-            transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            backdrop-filter: blur(20px);
-            isolation: isolate;
-        }
-
-        .salute-toast.is-visible {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-
-        .progress-container {
-            margin: 2.5rem 0;
-            padding: 1.8rem;
-            background: var(--surface-solid-2);
-            border-radius: var(--radius);
-            border: 1px solid var(--line);
-            justify-self: center;
-            width: 60%;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: var(--muted);
-        }
-
-        .progress-bar-wrapper {
-            height: 14px;
-            background: rgba(0, 0, 0, 0.08);
-            border-radius: 9999px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 92%;
-            background: linear-gradient(90deg, var(--nature), #4ade80);
-            border-radius: 9999px;
-            position: relative;
-            transition: width 2s ease;
-        }
-
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-            animation: shine 4s linear infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-150%);
-            }
-
-            100% {
-                transform: translateX(400%);
-            }
-        }
-
-        .progress-text {
-            text-align: center;
-            margin-top: 0.8rem;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--nature);
-        }
-
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 1.5rem 1rem 1.2rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .progress-container {
-                margin: 2.5rem 0;
-                padding: 1.8rem;
-                background: var(--surface-solid-2);
-                border-radius: var(--radius);
-                border: 1px solid var(--line);
-                justify-self: center;
-                width: 95%;
-            }
-        }
-    </style>
-</head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DLMMEM4M0W"></script>
-<script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Programador Silvestre: tecnología, vida off grid y soluciones para vivir en el bosque." />
+  <title>Programador Silvestre | Portal off grid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS5N51PFX5"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {
-        dataLayer.push(arguments);
+      dataLayer.push(arguments);
     }
     gtag('js', new Date());
 
-    gtag('config', 'G-DLMMEM4M0W');
-</script>
+    gtag('config', 'G-YS5N51PFX5');
+  </script>
+</head>
 
 <body>
-    <div class="bg-glow"></div>
-    <div class="bg-glow-2"></div>
+  <a class="skip-link" href="#main-content">Saltar al contenido</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" data-view="inicio" aria-label="Programador Silvestre, inicio">
+        <span class="brand-mark" aria-hidden="true">⌁</span>
+        <span>Programador <strong>Silvestre</strong></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu">
+        <span class="sr-only">Abrir menú</span><span></span><span></span><span></span>
+      </button>
+      <div class="nav-panel" id="primary-menu">
+        <ul class="nav-links">
+          <li><a class="nav-link active" href="#inicio" data-view="inicio">Inicio</a></li>
+          <li class="nav-dropdown">
+            <button class="nav-link dropdown-trigger" type="button" aria-expanded="false">Secciones <span
+                aria-hidden="true">⌄</span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#comunicados" data-view="comunicados">Comunicados</a></li>
+              <li><a href="#programador" data-view="programador">Programador Silvestre</a></li>
+              <li><a href="#bosque" data-view="bosque">Bosque</a></li>
+              <li><a href="#proyectos" data-view="proyectos">Proyectos técnicos</a></li>
+              <li><a href="#soluciones" data-view="soluciones">Soluciones</a></li>
 
-    <div class="container">
-        <div class="glass-card">
+            </ul>
+          </li>
+          <li><a class="nav-link" href="#desarrollo" data-view="desarrollo">Portfolio</a></li>
+          <li><a class="nav-link" href="#acerca" data-view="acerca">Acerca de</a></li>
+          <li><a class="nav-link nav-link--contact" href="#contacto" data-view="contacto">Contacto</a></li>
+        </ul>
+        <button class="theme-toggle" type="button" aria-label="Cambiar a tema oscuro" title="Cambiar tema"><span
+            aria-hidden="true">☼</span></button>
+      </div>
+    </nav>
+  </header>
 
-            <!-- Toggle de Tema -->
-            <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
-                <svg id="themeIcon" viewBox="0 0 24 24">
-                    <path
-                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0zM18.36 7.05l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c.39.39.39 1.03 0 1.41s1.03-.39-1.41 0z" />
-                </svg>
-            </button>
-
-            <!-- Foto de Perfil desde tu repositorio de GitHub -->
-            <div class="avatar-wrapper">
-                <img src="https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/main/Images/me.jpg"
-                    alt="Programador Silvestre" class="avatar-img">
-            </div>
-
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                <span>DESARROLLANDO PROYECTO</span>
-            </div>
-
-            <h1>Programador Silvestre</h1>
-            <div class="brand-sub">&lt;code, hardware & nature /&gt;</div>
-
-            <p class="description">
-                Construyendo soluciones de software, automatización e infraestructura local. Preparando la plataforma
-                oficial.
-            </p>
-
-            <div class="progress-container">
-                <div class="progress-label">
-                    <span>Creando la experiencia...</span>
-                    <span><strong>92%</strong></span>
-                </div>
-                <div class="progress-bar-wrapper">
-                    <div class="progress-bar"></div>
-                </div>
-                <div class="progress-text">¡Casi listo! 🔥</div>
-            </div>
-
-            <div class="hero-actions">
-                <button id="salute-button" class="button button--primary salute-button" type="button"
-                    aria-describedby="salute-status">
-                    Saluda a Silvestre <span>→</span>
-                </button>
-
-                <!-- Elementos indispensables para que JS no falle -->
-                <div id="salute-status" class="salute-status"></div>
-                <div id="salute-toast" class="salute-toast">Programador Silvestre ha recibido y respondido tu saludo
-                    desde la montaña! Gracias!</div>
-            </div>
-
-            <!-- Bloque Destacado de Fecha -->
-            <div class="release-box">
-                <div class="release-label">Gran Estreno</div>
-                <div class="release-date">🗓️ 1 de Agosto</div>
-            </div>
-
-            <!-- Redes Sociales / Enlaces SVG -->
-            <div class="social-links">
-                <!-- YouTube -->
-                <a href="https://www.youtube.com/@programadorsilvestre" target="_blank" class="social-card"
-                    title="YouTube">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                    </svg>
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://www.instagram.com/ProgramadorSilvestre/" target="_blank" class="social-card"
-                    title="Instagram">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                </a>
-
-                <!-- TikTok -->
-                <a href="https://www.tiktok.com/@programador.silve" target="_blank" class="social-card" title="TikTok">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.85.12V9.33a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V8.71a8.23 8.23 0 0 0 4.92 1.6V6.86a4.85 4.85 0 0 1-1-.17z" />
-                    </svg>
-                </a>
-
-                <!-- Facebook -->
-                <a href="https://www.facebook.com/people/Programador-Silvestre/61581705030547/" target="_blank"
-                    class="social-card" title="Facebook">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                    </svg>
-                </a>
-            </div>
-
+  <main id="main-content" class="main-container">
+    <section id="inicio" class="view view--active" data-page="inicio">
+      <div class="hero container">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> Tecnología con raíces</p>
+          <h1>Programador<br /><em>Silvestre.</em></h1>
+          <p class="hero-welcome">Bienvenido a mi portal.</p>
+          <p class="hero-text">Un espacio donde la vida entre árboles se encuentra con la curiosidad técnica. Comparto
+            lo que construyo, aprendo y mejoro para vivir cómodo, conectado y libre en medio del bosque.</p>
+          <div class="hero-actions"><button id="salute-button" class="button button--primary salute-button"
+              type="button" aria-describedby="salute-description salute-status">Saluda a Silvestre
+              <span>→</span></button>
+            <!--
+              portal <span>→</span></a><a class="button button--ghost" href="#acerca" data-view="acerca">Conoce la
+              --><a class="button button--ghost" href="#acerca" data-view="acerca">Conoce la historia</a>
+          </div>
+          <div class="salute-message">
+            <p id="salute-description">Cuando envíes un saludo, un pequeño LED parpadeará en mi cabaña para avisarme que
+              estuviste aquí.</p>
+            <p id="salute-status" class="salute-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
+        <div class="hero-art" aria-label="Ilustración de un bosque tecnológico">
+          <div class="sun"></div>
+          <div class="hill hill--back"></div>
+          <div class="hill hill--front"></div>
+          <div class="tree tree--one"></div>
+          <div class="tree tree--two"></div>
+          <div class="tree tree--three"></div>
+          <div class="tree tree--four"></div>
+          <div class="tree tree--five"></div>
+          <div class="tree tree--six"></div>
+          <div class="cabin">
+            <div class="cabin-loft"></div><span class="cabin-door"></span><span class="cabin-window"></span><span
+              class="cabin-porch"></span>
+          </div>
+          <!-- <div class="signal"><i></i><i></i><i></i></div> -->
+          <p>OFF GRID <span>•</span> EN LÍNEA</p>
+        </div>
+      </div>
+      <section class="intro-section container">
+        <p class="eyebrow"><span></span> El mapa del portal</p>
+        <div class="section-heading">
+          <h2>Ideas prácticas para<br /><em>una vida más libre.</em></h2>
+          <p>Aquí encontrarás el contexto detrás de los videos, guías claras para tus propios proyectos y soluciones
+            reales a los pequeños retos de vivir de otra manera.</p>
+        </div>
+        <div class="topic-grid">
+          <a class="topic-card" href="#comunicados" data-view="comunicados"><span class="topic-number">05</span><span
+              class="topic-icon">◌</span>
+            <h3>Comunicados</h3>
+            <p>Las novedades y avisos que ocurren en el proyecto.</p><span class="card-arrow">↗</span>
+          </a>
+          <a class="topic-card" href="#programador" data-view="programador"><span class="topic-number">01</span><span
+              class="topic-icon">⌂</span>
+            <h3>Programador Silvestre</h3>
+            <p>Videos sobre tecnología, proyectos y vida off grid.</p><span class="card-arrow">↗</span>
+          </a>
+          <a class="topic-card" href="#bosque" data-view="bosque"><span class="topic-number">02</span><span
+              class="topic-icon">♧</span>
+            <h3>Bosque</h3>
+            <p>La experiencia de habitar y cuidar el entorno natural.</p><span class="card-arrow">↗</span>
+          </a>
+          <a class="topic-card" href="#proyectos" data-view="proyectos"><span class="topic-number">03</span><span
+              class="topic-icon">⌘</span>
+            <h3>Proyectos técnicos</h3>
+            <p>Ideas, procesos y aprendizajes hechos a mano.</p><span class="card-arrow">↗</span>
+          </a>
+          <a class="topic-card" href="#soluciones" data-view="soluciones"><span class="topic-number">04</span><span
+              class="topic-icon">✦</span>
+            <h3>Soluciones</h3>
+            <p>Respuestas sencillas para problemas cotidianos.</p><span class="card-arrow">↗</span>
+          </a>
 
-        <footer>
-            © 2026 • Programador Silvestre. Todos los derechos reservados.
-        </footer>
+          <a class="topic-card" href="#desarrollo" data-view="desarrollo"><span class="topic-number">06</span><span
+              class="topic-icon">⌬</span>
+            <h3>Portfolio</h3>
+            <p>Soluciones hechas para resolver problemas reales.</p><span class="card-arrow">↗</span>
+          </a>
+        </div>
+      </section>
+    </section>
+
+    <section id="programador" class="view video-view" data-page="programador">
+      <div class="container video-hero">
+        <div>
+          <p class="eyebrow"><span></span> Canal de YouTube</p>
+          <h1>Programador<br /><em>Silvestre.</em></h1>
+        </div>
+        <div>
+          <p>Proyectos, automatización, tecnología útil y el proceso de construir una vida conectada entre los árboles.
+            Acompáñame en el canal para ver cada idea en acción.</p>
+          <a class="button button--primary" href="https://www.youtube.com/@ProgramadorSilvestre" target="_blank"
+            rel="noreferrer">Visitar el canal <span>↗</span></a>
+        </div>
+      </div>
+      <div class="container video-section" data-programador-videos aria-live="polite">
+        <p class="feed-status">Cargando videos…</p>
+      </div>
+    </section>
+    <section id="bosque" class="view video-view" data-page="bosque">
+      <div class="container video-hero">
+        <div>
+          <p class="eyebrow"><span></span> Canal de YouTube</p>
+          <h1>Sonidos del<br /><em>Bosque.</em></h1>
+        </div>
+        <div>
+          <p>¿Quieres dormir, trabajar o descansar a gusto? Te invito a relajarte con los sonidos y paisajes del entorno
+            donde vivo. Una ventana tranquila al bosque, estés donde estés.</p>
+          <a class="button button--primary" href="https://www.youtube.com/@BosqueSilvestre" target="_blank"
+            rel="noreferrer">Visitar el canal <span>↗</span></a>
+        </div>
+      </div>
+      <div class="container video-section" data-bosque-videos aria-live="polite">
+        <p class="feed-status">Cargando videos del bosque…</p>
+      </div>
+    </section>
+    <section id="proyectos" class="view development-view" data-page="proyectos">
+      <div class="container development-hero">
+        <div class="development-hero__copy">
+          <p class="eyebrow"><span></span> Bitácora del bosque</p>
+          <h1>Proyectos<br /><em>técnicos.</em></h1>
+          <p>Cada proyecto nace de una necesidad real de la cabaña: saludar, avisar, medir o automatizar. Aquí documento
+            el proceso completo, desde la primera idea hasta el sistema funcionando entre los árboles.</p>
+          <div class="hero-actions"><a class="button button--ghost" href="#bitacora-tecnica">Ver bitácora</a></div>
+        </div>
+        <div class="development-orbit" aria-hidden="true"><span class="orbit-node orbit-node--one">FIRMWARE</span><span
+            class="orbit-node orbit-node--two">PROTOTIPOS</span><span
+            class="orbit-node orbit-node--three">IOT</span><span class="orbit-node orbit-node--four">SOLAR</span><span
+            class="orbit-node orbit-node--five">FIREBASE</span>
+          <div class="orbit-core"><i></i><i></i><i></i><b>BITÁCORA<br />TÉCNICA</b></div>
+        </div>
+      </div>
+      <div id="bitacora-tecnica" class="container notice-feed" data-tech-projects aria-live="polite">
+        <p class="feed-status">Cargando proyectos técnicos…</p>
+      </div>
+    </section>
+    <section id="soluciones" class="view development-view" data-page="soluciones">
+      <div class="container development-hero">
+        <div class="development-hero__copy">
+          <p class="eyebrow"><span></span> Vivir cómodo en el bosque</p>
+          <h1>Soluciones<br /><em>prácticas.</em></h1>
+          <p>Vivir lejos de la ciudad trae comodidades que hay que resolver por cuenta propia: agua, energía,
+            comunicación, seguridad. Aquí documento cómo fui resolviendo cada una para vivir bien en medio del bosque.
+          </p>
+          <div class="hero-actions"><a class="button button--ghost" href="#bitacora-soluciones">Ver soluciones</a></div>
+        </div>
+        <div class="development-orbit" aria-hidden="true"><span class="orbit-node orbit-node--one">AGUA</span><span
+            class="orbit-node orbit-node--two">ENERGÍA</span><span
+            class="orbit-node orbit-node--three">CONECTIVIDAD</span><span
+            class="orbit-node orbit-node--four">SEGURIDAD</span><span class="orbit-node orbit-node--five">CLIMA</span>
+          <div class="orbit-core"><i></i><i></i><i></i><b>VIDA<br />OFF GRID</b></div>
+        </div>
+      </div>
+      <div id="bitacora-soluciones" class="container notice-feed" data-tech-solutions aria-live="polite">
+        <p class="feed-status">Cargando soluciones…</p>
+      </div>
+    </section>
+    <section id="topic" class="view topic-view" data-page="topic" aria-live="polite">
+      <div class="container topic-view__inner">
+        <a class="button button--ghost topic-back" href="#inicio" data-topic-back>← Volver</a>
+        <p class="feed-status">Cargando artículo…</p>
+      </div>
+    </section>
+    <section id="comunicados" class="view notices-view" data-page="comunicados">
+      <div class="container notices-header">
+        <div>
+          <p class="eyebrow"><span></span> Novedades del bosque</p>
+          <h1>Comunicados.</h1>
+        </div>
+        <p>Aquí encontrarás los últimos comunicados sobre lo que sucede en el proyecto: nuevos videos, avances, retos y
+          avisos importantes compartidos directamente desde el bosque.</p>
+      </div>
+      <div class="container notice-feed" data-notice-feed aria-live="polite">
+        <p class="feed-status">Cargando comunicados desde el bosque…</p>
+      </div>
+    </section>
+    <section id="desarrollo" class="view development-view" data-page="desarrollo">
+      <div class="container development-hero">
+        <div class="development-hero__copy">
+          <p class="eyebrow"><span></span> Desarrollo a medida</p>
+          <h1>Tu idea, en<br /><em>todas las pantallas.</em></h1>
+          <p>Desde una app móvil hasta el firmware de un equipo conectado: desarrollo soluciones completas para
+            convertir una necesidad real en una herramienta lista para usar.</p>
+          <div class="hero-actions"><a class="button button--primary"
+              href="mailto:programador.silvestre@gmail.com?subject=Consulta%20para%20una%20solución">Platiquemos de tu
+              problema
+              <span>→</span></a><a class="button button--ghost" href="#portafolio-desarrollo">Ver soluciones</a></div>
+        </div>
+        <div class="development-orbit" aria-hidden="true"><span class="orbit-node orbit-node--one">HARDWARE</span><span
+            class="orbit-node orbit-node--two">SOFTWARE</span><span class="orbit-node orbit-node--three">IOT</span><span
+            class="orbit-node orbit-node--four">CONTROL</span><span class="orbit-node orbit-node--five">MONITOREO</span>
+          <div class="orbit-core"><i></i><i></i><i></i><b>SOLUCIÓN<br />A MEDIDA</b></div>
+        </div>
+      </div>
+      <section class="container dev-intro">
+        <p class="eyebrow"><span></span> Primero entendemos el reto</p>
+        <div>
+          <h2>Lo importante es que<br /><em>te funcione.</em></h2>
+          <p>No parto de una tecnología, sino de lo que necesitas resolver. Analizamos el proceso, definimos la solución
+            y construimos una herramienta clara para usarla en el día a día.</p>
+        </div>
+      </section>
+      <section class="container services-section">
+        <div class="section-side-label">SOLUCIONES<br />QUE DESARROLLO</div>
+        <div class="services-grid">
+          <article><span>01</span>
+            <h3>Apps Android e iOS</h3>
+            <p>Aplicaciones móviles claras y funcionales para Android y iPhone, diseñadas alrededor de las necesidades
+              de tus usuarios y tu operación.</p>
+          </article>
+          <article><span>02</span>
+            <h3>Publicación y distribución</h3>
+            <p>Te acompaño para publicar tu app en Google Play y App Store, o preparo una distribución privada cuando no
+              necesitas una tienda pública.</p>
+          </article>
+          <article><span>03</span>
+            <h3>Apps web y Windows</h3>
+            <p>Paneles web, herramientas de escritorio y sistemas internos para operar, consultar información y
+              simplificar procesos desde cualquier equipo.</p>
+          </article>
+          <article><span>04</span>
+            <h3>Firmware C/C++</h3>
+            <p>Software confiable para dispositivos electrónicos, sensores, actuadores y productos que necesitan
+              responder bien en el mundo real.</p>
+          </article>
+          <article><span>05</span>
+            <h3>Especialidad ESP32</h3>
+            <p>Desarrollo con ESP32, sus variantes y ESP8266 para conectar equipos por Wi‑Fi, automatizar tareas y
+              llevar datos de un sensor hasta tu app.</p>
+          </article>
+          <article><span>06</span>
+            <h3>Soluciones integrales</h3>
+            <p>Cuando una app y un dispositivo necesitan trabajar juntos, construyo la conexión completa: hardware,
+              firmware, plataforma y experiencia de uso.</p>
+          </article>
+        </div>
+      </section>
+      <section id="portafolio-desarrollo" class="container portfolio-section">
+        <div class="portfolio-header">
+          <div>
+            <p class="eyebrow"><span></span> Portfolio</p>
+            <h2>Soluciones que ya<br /><em>están en marcha.</em></h2>
+          </div>
+          <p>Ejemplos reales de sistemas creados para automatizar, controlar y conectar procesos.
+          </p>
+        </div>
+        <div class="project-grid" data-project-grid aria-live="polite">
+          <p class="feed-status">Cargando muestras de desarrollo…</p>
+        </div>
+      </section>
+      <section class="container capabilities-section">
+        <div>
+          <p class="eyebrow"><span></span> Un solo proyecto, varios frentes</p>
+          <h2>Del dispositivo<br />a la <em>aplicación.</em></h2>
+        </div>
+        <div class="technology-list"><span>Android</span><span>iOS</span><span>Google Play</span><span>App Store</span>
+          <span>Aplicaciones web</span><span>Windows</span><span>Firmware
+            C/C++</span><span>ESP32</span><span>ESP8266</span>
+        </div>
+      </section>
+      <section class="container development-cta">
+        <div>
+          <p class="eyebrow"><span></span> Hablemos</p>
+          <h2>¿Qué problema<br />quieres <em>resolver?</em></h2>
+        </div>
+        <div>
+          <p>Platícame qué está pasando, qué te gustaría mejorar y cómo trabajas hoy. Revisamos tu caso y encontramos
+            una solución confiable, sencilla de usar y pensada para tu realidad.</p><a class="button button--primary"
+            href="mailto:programador.silvestre@gmail.com?subject=Consulta%20para%20una%20solución">programador.silvestre@gmail.com
+            <span>→</span></a>
+        </div>
+      </section>
+    </section>
+    <section id="acerca" class="view about-view" data-page="acerca">
+      <div class="container about-hero">
+        <div>
+          <p class="eyebrow"><span></span> El origen</p>
+          <h1>De la ciudad<br />al <em>bosque.</em></h1>
+        </div>
+        <p class="about-lead">Soy Abel. Esta no es una historia de escapar del mundo: es la de aprender a habitarlo a mi
+          manera, con las manos ocupadas, una conexión a internet y los pinos como vecinos.</p>
+      </div>
+      <div class="container journey-grid">
+        <aside class="journey-aside">
+          <p>PROGRAMADOR<br />SILVESTRE</p><span>2025 — HOY</span>
+        </aside>
+        <div class="journey-content">
+          <article class="story-block"><span class="story-index">01</span>
+            <div>
+              <h2>Aprender a resolver lo cotidiano.</h2>
+              <p>La vida off grid pide atención a muchas cosas pequeñas: una conexión que falla, una tubería que
+                necesita reparación, una herramienta que hay que adaptar o la energía que debe alcanzar para el día.
+                Antes de llegar al bosque,
+                distintos trabajos me acercaron a ese tipo de soluciones: diseño, fotografía, construcción,
+                electricidad, plomería, electrónica, programación e instalaciones.</p>
+              <p>Más que una colección de oficios, fueron aprendizajes útiles para depender menos de servicios externos
+                y entender mejor cómo funciona el lugar que hoy llamo hogar.</p>
+            </div>
+          </article>
+          <article class="story-block">
+            <span class="story-index">02</span>
+            <div>
+              <h2>La ciudad dejó de sentirse como hogar.</h2>
+              <p>Durante años viví el ritmo de la ciudad como cualquier otra persona: tráfico, ruido constante, prisas y
+                la sensación de que siempre había algo más por hacer. Poco a poco empecé a notar que ese estilo de vida
+                me generaba más
+                estrés que satisfacción. Disfrutaba mi trabajo, pero cada vez valoraba más el silencio, la naturaleza y
+                la idea de construir un espacio donde pudiera vivir con mayor tranquilidad.</p>
+
+
+              <p>No fue una decisión impulsiva ni un rechazo a la ciudad. Simplemente descubrí que quería una vida
+                diferente: un lugar donde el tiempo se midiera más por los proyectos que construyo y menos por los
+                embotellamientos, el ruido
+                de los vecinos o el ritmo acelerado de todos los días.</p>
+
+
+            </div>
+          </article>
+
+          <article class="story-block story-block--highlight"><span class="story-index">02</span>
+            <div>
+              <h2>La idea comenzó a tomar energía.</h2>
+              <p>Instalar sistemas solares fue el punto de inflexión. Ahí entendí que producir y cuidar la propia
+                energía podía hacer viable otra forma de vivir. Más tarde, el trabajo como desarrollador de software
+                desde casa sumó otra pieza
+                importante: la posibilidad de mantener el proyecto sin estar atado a una ciudad.</p>
+            </div>
+          </article>
+          <article class="story-block"><span class="story-index">03</span>
+            <div>
+              <h2>Una carpa, un terreno y una decisión.</h2>
+              <p>Iniciado el 2025 tomé un vuelo, busqué un terreno en las montañas y empecé mi proyecto. Las primeras
+                noches dormí en una carpa, mientras levantaba una primera choza. Sin servicios y sin electricidad,
+                construir la cabaña fue
+                un reto constante; en ocasiones, por no tener energía, tocó trabajar casi únicamente con herramientas
+                manuales.
+              </p>
+              <p>Hubo problemas técnicos, cansancio y mucho por aprender, pero rendirme no era parte del plan. Poco a
+                poco la cabaña se volvió hogar.</p>
+            </div>
+          </article>
+          <article class="story-block story-block--today"><span class="story-index">04</span>
+            <div>
+              <h2>Hoy, el bosque está conectado.</h2>
+              <p>Después llegaron los paneles solares y Starlink. Ahora puedo vivir con las comodidades que valoro de la
+                ciudad, sin renunciar al silencio, la distancia ni a estar rodeado de naturaleza.</p>
+              <p>En <strong>Programador Silvestre</strong> comparto esta historia tal como sucede: los proyectos, las
+                soluciones, los errores y los retos cotidianos de vivir off grid. Si te interesa construir algo parecido
+                —o simplemente acompañar
+                el proceso—, te invito a verlo en YouTube.</p><a class="button button--primary"
+                href="https://www.youtube.com/@ProgramadorSilvestre" target="_blank" rel="noreferrer">Visitar
+                @ProgramadorSilvestre <span>↗</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="contacto" class="view section-view" data-page="contacto">
+      <div class="container section-placeholder">
+        <p class="eyebrow"><span></span> Hablemos</p>
+        <h1>Contacto</h1>
+        <p>Un espacio abierto para compartir ideas, dudas y colaboraciones.</p>
+      </div>
+    </section>
+  </main>
+  <dialog class="image-lightbox" data-image-lightbox aria-label="Vista ampliada de imagen">
+    <button class="image-lightbox__close" type="button" data-image-lightbox-close aria-label="Cerrar imagen">×</button>
+    <img data-image-lightbox-image src="" alt="" />
+    <p data-image-lightbox-caption></p>
+  </dialog>
+  <footer class="site-footer">
+
+    <div class="container footer-inner"><a class="brand" href="#inicio" data-view="inicio"><span class="brand-mark"
+          aria-hidden="true">⌁</span><span>Programador <strong>Silvestre</strong></span></a>
+      <!-- Redes Sociales / Enlaces SVG -->
+      <div class="social-links">
+        <!-- YouTube -->
+        <a href="https://www.youtube.com/@programadorsilvestre" target="_blank" class="social-card" title="YouTube">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/ProgramadorSilvestre/" target="_blank" class="social-card" title="Instagram">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@programador.silve" target="_blank" class="social-card" title="TikTok">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .58.04.85.12V9.33a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V8.71a8.23 8.23 0 0 0 4.92 1.6V6.86a4.85 4.85 0 0 1-1-.17z" />
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/people/Programador-Silvestre/61581705030547/" target="_blank"
+          class="social-card" title="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+          </svg>
+        </a>
+      </div>
+      <p>Hecho con calma, curiosidad y respeto por el bosque.</p><small>© <span id="current-year"></span> Programador
+        Silvestre</small>
     </div>
-
-    <script>
-        // Manejador de Tema
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const body = document.body;
-
-        const sunPath = 'M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zM7.05 18.36l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0zM18.36 7.05l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c.39.39.39 1.03 0 1.41s1.03-.39-1.41 0z';
-        const moonPath = 'M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.2-6 1 1 0 0 0-1.1-1.3 8 8 0 1 1-8.2-11.7 1 1 0 0 0-1-.1z';
-
-        themeToggle.addEventListener('click', () => {
-            const isLight = body.getAttribute('data-theme') === 'light';
-            if (isLight) {
-                body.removeAttribute('data-theme');
-                themeIcon.querySelector('path').setAttribute('d', sunPath);
-            } else {
-                body.setAttribute('data-theme', 'light');
-                themeIcon.querySelector('path').setAttribute('d', moonPath);
-            }
-        });
-
-        // Observer para ajustar el botón una vez respondido el saludo sin tocar saludos.js
-        const saluteToast = document.getElementById('salute-toast');
-        const saluteBtn = document.getElementById('salute-button');
-
-        const toastObserver = new MutationObserver(() => {
-            if (saluteToast.classList.contains('is-visible')) {
-                saluteBtn.disabled = true;
-                saluteBtn.classList.add('completed');
-                saluteBtn.innerHTML = 'Saludo respondido ✓';
-            }
-        });
-
-        toastObserver.observe(saluteToast, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-    </script>
-    <script type="module" src="js/saludos.js"></script>
+  </footer>
+  <div id="salute-toast" class="salute-toast" role="status" aria-live="polite" aria-atomic="true"><strong>¡Silvestre
+      respondió tu saludo!</strong><span>Gracias por visitar la página.</span></div>
+  <script src="js/main.js"></script>
+  <script type="module" src="js/saludos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 
 </html>
