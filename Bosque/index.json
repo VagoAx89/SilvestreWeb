@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "platform": "youtube",
+  "videos": [
+    {
+      "id": "dW9GQiLFmIs",
+      "url": "https://youtu.be/dW9GQiLFmIs",
+      "enabled": true,
+      "featured": false,
+      "title": "",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/dW9GQiLFmIs/hqdefault.jpg"
+    },
+    {
+      "id": "lYmRsvVS7cU",
+      "url": "https://youtu.be/lYmRsvVS7cU",
+      "enabled": true,
+      "featured": false,
+      "title": "",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/lYmRsvVS7cU/hqdefault.jpg"
+    },
+    {
+      "id": "KOxSFVJc4bI",
+      "url": "https://youtu.be/KOxSFVJc4bI",
+      "enabled": true,
+      "featured": false,
+      "title": "",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/KOxSFVJc4bI/hqdefault.jpg"
+    },
+    {
+      "id": "X79e200abj8",
+      "url": "https://youtu.be/X79e200abj8",
+      "enabled": true,
+      "featured": false,
+      "title": "",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/X79e200abj8/hqdefault.jpg"
+    },
+    {
+      "id": "x6QVed5tJII",
+      "url": "https://youtu.be/x6QVed5tJII",
+      "enabled": true,
+      "featured": false,
+      "title": "",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/x6QVed5tJII/hqdefault.jpg"
+    }
+  ]
+}
