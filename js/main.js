@@ -20,6 +20,10 @@ const solutionsFeed = document.querySelector('[data-tech-solutions]');
 const solutionsUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Soluciones/index.json';
 const solutionsContentBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Soluciones/';
 const solutionsImagesBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/main/Images/Soluciones/';
+const bosqueVideosUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Bosque/index.json';
+const programadorVideosUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/ProgSilvestre/index.json';
+const bosqueVideosFeed = document.querySelector('[data-bosque-videos]');
+const programadorVideosFeed = document.querySelector('[data-programador-videos]');
 const topicView = document.querySelector('[data-page="topic"]');
 const imageLightbox = document.querySelector('[data-image-lightbox]');
 const imageLightboxImage = document.querySelector('[data-image-lightbox-image]');
@@ -44,6 +48,8 @@ let noticesLoaded = false;
 let projectsLoaded = false;
 let techProjectsLoaded = false;
 let solutionsLoaded = false;
+let bosqueVideosLoaded = false;
+let programadorVideosLoaded = false;
 
 function setTheme(theme) {
     root.dataset.theme = theme;
@@ -367,6 +373,68 @@ function loadSolutions() {
     });
 }
 
+function createVideoCard(video, channelName) {
+    const card = document.createElement('article');
+    card.className = `video-card${video.featured ? ' video-card--featured' : ''}`;
+    const frame = document.createElement('iframe');
+    frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.id)}`;
+    frame.title = video.title || `Video de ${channelName}`;
+    frame.loading = 'lazy';
+    frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    frame.allowFullscreen = true;
+    card.append(frame);
+
+    if (video.title || video.description) {
+        const copy = document.createElement('div');
+        copy.className = 'video-card__copy';
+        if (video.title) copy.append(Object.assign(document.createElement('h2'), { textContent: video.title }));
+        if (video.description) copy.append(Object.assign(document.createElement('p'), { textContent: video.description }));
+        card.append(copy);
+    }
+    return card;
+}
+
+async function loadVideoFeed({ feed, url, channelName, isLoaded, setLoaded }) {
+    if (isLoaded() || !feed) return;
+    try {
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!Array.isArray(data.videos)) throw new Error('Formato no válido');
+        const videos = data.videos
+            .filter((video) => video.enabled !== false && video.id)
+            .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+        feed.replaceChildren(...videos.map((video) => createVideoCard(video, channelName)));
+        if (!videos.length) feed.append(Object.assign(document.createElement('p'), { className: 'feed-status', textContent: 'Próximamente habrá videos nuevos.' }));
+        setLoaded();
+    } catch (error) {
+        feed.replaceChildren(Object.assign(document.createElement('p'), {
+            className: 'feed-status feed-status--error',
+            textContent: 'No fue posible cargar los videos por ahora. Intenta de nuevo más tarde.'
+        }));
+    }
+}
+
+function loadBosqueVideos() {
+    return loadVideoFeed({
+        feed: bosqueVideosFeed,
+        url: bosqueVideosUrl,
+        channelName: 'Bosque Silvestre',
+        isLoaded: () => bosqueVideosLoaded,
+        setLoaded: () => { bosqueVideosLoaded = true; }
+    });
+}
+
+function loadProgramadorVideos() {
+    return loadVideoFeed({
+        feed: programadorVideosFeed,
+        url: programadorVideosUrl,
+        channelName: 'Programador Silvestre',
+        isLoaded: () => programadorVideosLoaded,
+        setLoaded: () => { programadorVideosLoaded = true; }
+    });
+}
+
 function showTopic(section, articleName) {
     const source = articleSources[section];
     if (!source || !articleName || !topicView) {
@@ -424,6 +492,8 @@ function showView(name) {
     if (name === 'proyectos') loadTechProjects();
     if (name === 'soluciones') loadSolutions();
     if (name === 'desarrollo') loadProjects();
+    if (name === 'bosque') loadBosqueVideos();
+    if (name === 'programador') loadProgramadorVideos();
 }
 
 links.forEach((link) => link.addEventListener('click', (event) => {
