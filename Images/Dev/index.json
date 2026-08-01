@@ -5,9 +5,9 @@
         "descripcion": "Sistema de control de acceso mediante ESP32 con comunicación HTTPS y panel web para administración remota.",
         "tecnologias": [
             "ESP32",
-            "HTTPS",
-            "PHP",
-            "MySQL"
+            "HTTP",
+            "NodeJs",
+            "JavaScript"
         ],
         "imagenes": [
             "001.jpg",
