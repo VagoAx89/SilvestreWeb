@@ -73,7 +73,7 @@ if (button && status && toast) {
             });
 
             // 3. Temporizador ajustado a 10 segundos (10000 ms)
-            responseTimer = window.setTimeout(showBusyMessage, 10000);
+            responseTimer = window.setTimeout(showBusyMessage, 10500);
 
         } catch (error) {
             console.error(error);
