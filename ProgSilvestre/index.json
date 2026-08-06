@@ -3,6 +3,15 @@
   "platform": "youtube",
   "videos": [
     {
+      "id": "xlcz_h76zwQ",
+      "url": "https://youtu.be/xlcz_h76zwQ",
+      "enabled": true,
+      "featured": false,
+      "title": "",
+      "description": "",
+      "thumbnail": "https://i.ytimg.com/vi/xlcz_h76zwQ/hqdefault.jpg"
+    },
+    {
       "id": "KQCWLFg_XqM",
       "url": "https://youtu.be/KQCWLFg_XqM",
       "enabled": true,
