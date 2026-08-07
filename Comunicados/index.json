@@ -9,6 +9,16 @@
   "youtube": null,
   "fijado": false,
   "texto": "Qué emoción poder darles la bienvenida a este nuevo espacio! Después de mucho tiempo con la idea rondando en mi cabeza, por fin nace la página oficial de Programador Silvestre. Este será el lugar donde compartiré mis proyectos, experimentos, avances, artículos, fotografías, videos, ideas y todas esas aventuras que surgen entre la programación, la electrónica, la vida en el bosque y la construcción de una vida autosuficiente.\n\nQuiero que este sitio sea mucho más que una página web: quiero que se convierta en un punto de encuentro para quienes disfrutan crear, aprender y construir cosas con sus propias manos. Aquí encontrarán contenido exclusivo, novedades antes que en cualquier otra plataforma y un registro de todo lo que vaya desarrollando con el paso del tiempo.\n\nGracias de corazón por tomarse un momento para visitarme y formar parte de esta nueva etapa. Siéntanse completamente bienvenidos, recorran cada rincón, exploren todo el contenido y vuelvan cuando quieran... porque esta también es su casa. ¡Apenas estamos comenzando y vienen proyectos increíbles!"
-}
+},
+  {
+    "id": 2,
+    "fecha": "2026-08-07",
+    "categoria": "Comunidad",
+    "titulo": "Reestructuración: Adiós a 'Soluciones', ¡bienvenida 'Productos'!",
+    "imagen": null,
+    "youtube": null,
+    "fijado": false,
+    "texto": "¡Hola a todos! Quiero avisarles que este próximo 8 de agosto la sección 'Soluciones' desaparecerá para dar paso a una nueva sección llamada 'Productos'.\n\nEl objetivo es tener un espacio más claro y práctico para mostrarles de primera mano los equipos, componentes y herramientas reales que uso en mi día a día en mi entorno off-grid. Puedes encontrar los articulos de Soluciones en seccion Proyectos tecnicios.\n\nLos espero este 8 de agosto para estrenar la nueva estructura!"
+  }
 
 ]
