@@ -10,5 +10,11 @@
     "titulo": "Monitoreo de bateria solar",
     "subtitulo": "Monitoreo y gestion de energia almacenada en bateria litio de 10kwh",
     "archivo_contenido": "monitoreo-bateria-solar.md"
+  },
+  {
+    "id": "agua-arroyo",
+    "titulo": "Bombeo de agua solar",
+    "subtitulo": "Sistema para bombear agua desde un arroyo hasta mi cabaña",
+    "archivo_contenido": "agua-arroyo.md"
   }
 ]
