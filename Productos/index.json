@@ -4,11 +4,5 @@
     "titulo": "Estacion de poder XP1000",
     "subtitulo": "Potente estacion de poder de 1800w",
     "archivo_contenido": "xp1000.md"
-  }, 
-  {
-    "id": "Bluetti-AC180p",
-    "titulo": "Estacion de poder AC180p",
-    "subtitulo": "Potente estacion de poder de Bluetti",
-    "archivo_contenido": "ac180p.md"
   }
 ]
