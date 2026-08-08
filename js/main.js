@@ -1,3 +1,4 @@
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
 const root = document.documentElement;
 const themeToggle = document.querySelector('.theme-toggle');
 const navToggle = document.querySelector('.nav-toggle');
@@ -16,10 +17,10 @@ const techFeed = document.querySelector('[data-tech-projects]');
 const techProjectsUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Proyectos/index.json';
 const techProjectsContentBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Proyectos/';
 const techProjectsImagesBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/main/Images/Proyectos/';
-const solutionsFeed = document.querySelector('[data-tech-solutions]');
-const solutionsUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Soluciones/index.json';
-const solutionsContentBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Soluciones/';
-const solutionsImagesBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/main/Images/Soluciones/';
+const solutionsFeed = document.querySelector('[data-tech-products]');
+const solutionsUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Productos/index.json';
+const solutionsContentBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Productos/';
+const solutionsImagesBaseUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/main/Images/Productos/';
 const bosqueVideosUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/Bosque/index.json';
 const programadorVideosUrl = 'https://raw.githubusercontent.com/VagoAx89/SilvestreWeb/refs/heads/main/ProgSilvestre/index.json';
 const bosqueVideosFeed = document.querySelector('[data-bosque-videos]');
@@ -37,11 +38,11 @@ const articleSources = {
         imagesBaseUrl: techProjectsImagesBaseUrl,
         label: 'Proyectos técnicos'
     },
-    soluciones: {
+    productos: {
         listUrl: solutionsUrl,
         contentBaseUrl: solutionsContentBaseUrl,
         imagesBaseUrl: solutionsImagesBaseUrl,
-        label: 'Soluciones'
+        label: 'Productos'
     }
 };
 let noticesLoaded = false;
@@ -133,6 +134,47 @@ async function loadNotices() {
         }));
     }
 }
+async function loadLatestNotice() {
+    const container = document.querySelector('.last-news');
+    if (!container) return;
+
+    try {
+        const response = await fetch(noticesUrl, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const notices = await response.json();
+        if (!Array.isArray(notices) || notices.length === 0) return;
+
+        // Obtenemos la noticia con el ID más alto (Math.max)
+        const latestNotice = notices.reduce((max, notice) => notice.id > max.id ? notice : max, notices[0]);
+
+        // Truncamos el texto (ej. primeros 150 caracteres para un resumen legible)
+        const maxChars = 150;
+        const excerpt = latestNotice.texto.length > maxChars ?
+            latestNotice.texto.substring(0, maxChars).trim() + '...' :
+            latestNotice.texto;
+
+        // Formateamos la fecha a algo más amigable (opcional)
+        const fechaFormateada = new Date(latestNotice.fecha + 'T00:00:00').toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+        });
+
+        // Inyectamos el HTML de la tarjeta
+        container.innerHTML = `
+            <div class="notice-badge">ULTIMO COMUNICADO • ${fechaFormateada}</div>
+            <h3 class="notice-title">${latestNotice.titulo}</h3>
+            <p class="notice-excerpt">${excerpt}</p>
+            <a href="#comunicados" class="notices-view">Leer más →</a>
+        `;
+
+    } catch (error) {
+        console.error('Error al cargar el último comunicado:', error);
+        // Opcional: Ocultar el contenedor si hay error para que no deje huecos vacíos
+        if (container.parentElement) container.parentElement.style.display = 'none';
+    }
+}
 
 function createProjectCard(project) {
     const card = document.createElement('article');
@@ -206,29 +248,83 @@ function getMarkdownImages(markdown, imagesBaseUrl) {
 }
 
 function appendMarkdownBody(container, markdown, imagesBaseUrl) {
-    const lines = markdown.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
-    lines.forEach((line) => {
+
+    // Si hay HTML embebido (iframe, div, etc.), usar Marked sobre todo el documento
+    if (/<(iframe|div|video|table|details|figure)\b/i.test(markdown)) {
+
+        // Reemplazar las imágenes Markdown por el HTML que ya usas
+        const processed = markdown.replace(
+            /!\[([^\]]*)\]\(([^)]+)\)/g,
+            (match, alt, path) => {
+                const fileName = path.split('/').pop();
+
+                return `
+<figure class="tech-figure">
+    <img class="tech-image"
+         src="${imagesBaseUrl}${encodeURIComponent(fileName)}"
+         alt="${alt}"
+         loading="lazy">
+    ${alt ? `<figcaption>${alt}</figcaption>` : ""}
+</figure>`;
+            }
+        );
+
+        container.innerHTML = marked.parse(processed);
+
+        container.querySelectorAll("img.tech-image").forEach(img => {
+            img.addEventListener("error", () => {
+                img.closest("figure")?.remove();
+            }, { once: true });
+        });
+
+        return;
+    }
+
+    // -------- Tu código actual --------
+
+    const lines = markdown.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+
+    lines.forEach(line => {
+
         const imageMatch = line.match(mdImagePattern);
+
         if (imageMatch) {
+
             const figure = document.createElement('figure');
             figure.className = 'tech-figure';
+
             const image = document.createElement('img');
             const fileName = imageMatch[2].split('/').pop();
+
             image.src = `${imagesBaseUrl}${encodeURIComponent(fileName)}`;
             image.alt = imageMatch[1] || '';
             image.loading = 'lazy';
-            image.addEventListener('error', () => figure.remove(), { once: true });
-            figure.append(image);
-            if (imageMatch[1]) {
-                figure.append(Object.assign(document.createElement('figcaption'), { textContent: imageMatch[1] }));
-            }
-            container.append(figure);
-        } else {
-            container.append(Object.assign(document.createElement('p'), { textContent: line }));
-        }
-    });
-}
 
+            image.addEventListener('error', () => figure.remove(), { once: true });
+
+            figure.append(image);
+
+            if (imageMatch[1]) {
+                figure.append(Object.assign(document.createElement('figcaption'), {
+                    textContent: imageMatch[1]
+                }));
+            }
+
+            container.append(figure);
+
+        } else {
+
+            const html = marked.parse(line);
+
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = html;
+
+            container.append(...wrapper.childNodes);
+        }
+
+    });
+
+}
 function enableTopicImageZoom(container) {
     container.querySelectorAll('.tech-figure').forEach((figure) => {
         const image = figure.querySelector('img');
@@ -365,11 +461,11 @@ function loadSolutions() {
         listUrl: solutionsUrl,
         contentBaseUrl: solutionsContentBaseUrl,
         imagesBaseUrl: solutionsImagesBaseUrl,
-        section: 'soluciones',
+        section: 'productos',
         isLoaded: () => solutionsLoaded,
         setLoaded: () => { solutionsLoaded = true; },
-        errorMessage: 'No fue posible cargar las soluciones por ahora. Intenta de nuevo más tarde.',
-        itemErrorMessage: 'No fue posible cargar el contenido de esta solución.'
+        errorMessage: 'No fue posible cargar los productos por ahora. Intenta de nuevo más tarde.',
+        itemErrorMessage: 'No fue posible cargar el contenido de este producto.'
     });
 }
 
@@ -490,7 +586,7 @@ function showView(name) {
     navToggle.setAttribute('aria-expanded', 'false');
     if (name === 'comunicados') loadNotices();
     if (name === 'proyectos') loadTechProjects();
-    if (name === 'soluciones') loadSolutions();
+    if (name === 'productos') loadSolutions();
     if (name === 'desarrollo') loadProjects();
     if (name === 'bosque') loadBosqueVideos();
     if (name === 'programador') loadProgramadorVideos();
@@ -544,3 +640,4 @@ function routeFromHash() {
 window.addEventListener('hashchange', routeFromHash);
 routeFromHash();
 document.querySelector('#current-year').textContent = new Date().getFullYear();
+loadLatestNotice();
