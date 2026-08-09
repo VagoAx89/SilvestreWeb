@@ -19,6 +19,16 @@
     "youtube": null,
     "fijado": false,
     "texto": "Hola a todos. Quiero avisarles que este próximo 8 de agosto la sección 'Soluciones' desaparecerá para dar paso a una nueva sección llamada 'Productos'.\n\nEl objetivo es tener un espacio más claro y práctico para mostrarles de primera mano los equipos, componentes y herramientas reales que uso en mi día a día en mi entorno off-grid. Puedes encontrar los articulos de Soluciones en seccion Proyectos tecnicios.\n\nLos espero este 8 de agosto para estrenar la nueva estructura!"
+  },
+    {
+    "id": 3,
+    "fecha": "2026-08-08",
+    "categoria": "Comunidad",
+    "titulo": "¡Ya somos 40,000!",
+    "imagen": null,
+    "youtube": null,
+    "fijado": true,
+    "texto": "Muchísimas gracias a todos los que forman parte de esta comunidad. Cuando comenzó esta aventura de Programador Silvestre, jamás imaginé que llegaríamos hasta aquí.\n\nGracias por acompañarme entre proyectos, electrónica, programación, vida en el bosque y todas las locuras que se van ocurriendo por el camino.\n\n40,000 gracias a todos ustedes. Y esto apenas comienza."
   }
 
 ]
