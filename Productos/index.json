@@ -1,14 +1,21 @@
 [
   {
-    "id": "Ctolity-XP1000",
-    "titulo": "Estacion de poder XP1000",
-    "subtitulo": "Potente estacion de poder de 1800w",
-    "archivo_contenido": "xp1000.md"
+    "id": "Soldadora-Yeswelder",
+    "titulo": "Soldadora Inverter YWM-160",
+    "subtitulo": "Una maquina de soldar capaz de trabajar en el bosque",
+    "archivo_contenido": "welder.md"
   },
-   {
+  {
     "id": "Taladro-Vevor",
     "titulo": "Taladro de banco Vevor",
     "subtitulo": "Taladro para perforaciones precisas",
     "archivo_contenido": "vebor.md"
+  },
+  {
+    "id": "Ctolity-XP1000",
+    "titulo": "Estacion de poder XP1000",
+    "subtitulo": "Potente estacion de poder de 1800w",
+    "archivo_contenido": "xp1000.md"
   }
+   
 ]
