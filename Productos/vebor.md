@@ -4,7 +4,7 @@ Cuando se trabaja en proyectos de fabricación y reparación en una cabaña rode
 
 Por eso, el **taladro de mesa de VEVOR** se convirtió en una herramienta muy útil dentro de mi taller y me ha ayudado en distintos proyectos que estoy realizando aquí en el bosque.
 
-![Taladro de mesa VEVOR utilizado en mi taller](https://img.vevorstatic.com/mx%2FTSZCD32A510HKFMUCV1%2Foriginal_img-v4%2Fbench-drill-press-m100-1.2.jpg?timestamp=1752032435000\&format=webp\&format=webp)
+![Taladro de mesa VEVOR utilizado en mi taller](../Images/Productos/vebor.jpg)
 
 ## Una herramienta para trabajar con mayor precisión
 
