@@ -478,8 +478,9 @@
                 </div>
                 <div class="contact-card">
                     <p class="contact-card__label">CORREO ELECTRÓNICO</p>
-                    <a class="contact-card__email"
-                        href="mailto:programador.silvestre@gmail.com?subject=Consulta%20desde%20el%20portal">programador.silvestre@gmail.com</a>
+                    <p class="contact-card__email" style="user-select: text; cursor: text;">
+                        programador.silvestre@gmail.com
+                    </p>
                     <p>Cuéntame brevemente qué necesitas, cómo lo resuelves hoy y qué te gustaría lograr. Te responderé
                         para platicar los siguientes pasos.</p>
                     <a class="button button--primary"
@@ -1108,7 +1109,71 @@
                 </div>
 
             </section>
+            <!-- PAQUETE SOLAR PERSONALIZADO -->
 
+            <section class="container portfolio-section" style="
+        margin-bottom: 80px;
+        padding: 45px 40px;
+        border: 1px solid rgba(128, 128, 128, 0.20);
+        border-radius: 16px;
+    ">
+
+                <div class="portfolio-header" style="
+            display: grid;
+            grid-template-columns: minmax(280px, 1fr) minmax(280px, 0.8fr);
+            gap: 50px;
+            align-items: center;
+        ">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            <span></span> ¿Necesitas algo diferente?
+                        </p>
+
+                        <h2 style="
+                font-size: 2rem;
+                line-height: 1.3;
+                margin-bottom: 0;
+            ">
+                            ¿Quieres que te arme un<br>
+                            <em>paquete solar a tu medida?</em>
+                        </h2>
+
+                    </div>
+
+
+                    <div>
+
+                        <p style="
+                line-height: 1.7;
+                font-size: 1rem;
+                margin: 0 0 24px 0;
+            ">
+                            Cada lugar y cada persona consumen energía de manera diferente. Cuéntame qué quieres
+                            alimentar, cuánto tiempo utilizas tus equipos y cómo es el lugar donde instalarás el
+                            sistema, y podemos partir de ahí para encontrar una configuración adecuada para ti.
+                        </p>
+
+                        <a class="button button--primary" href="#contacto" data-view="contacto">
+                            Contáctame
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <style>
+                    @media (max-width: 700px) {
+                        #energia .portfolio-section .portfolio-header {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                </style>
+
+            </section>
 
             <section class="container development-cta"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center; padding: 40px; border-radius: 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08);">
