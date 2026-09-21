@@ -661,126 +661,92 @@
 
             <!-- EQUIPOS DE REFERENCIA -->
 
-            <section class="container portfolio-section" style="
+            <section class="container portfolio-section" id="equipos-referencia" style="
         margin-bottom: 90px;
         padding: 55px 0;
-        border-top: 1px solid rgba(128,128,128,.18);
-        border-bottom: 1px solid rgba(128,128,128,.18);
+        border-top: 1px solid rgba(128, 128, 128, 0.18);
+        border-bottom: 1px solid rgba(128, 128, 128, 0.18);
     ">
 
                 <div class="portfolio-header" style="
             display: grid;
-            grid-template-columns: minmax(280px, .8fr) minmax(400px, 1.2fr);
+            grid-template-columns: minmax(280px, 0.8fr) minmax(400px, 1.2fr);
             gap: 60px;
             align-items: center;
         ">
 
-
                     <!-- TEXTO -->
 
                     <div>
-
                         <p class="eyebrow">
                             <span></span> El equipo que uso en el bosque
                         </p>
 
-                        <h2 style="
-        font-size: 2.2rem;
-        line-height: 1.25;
-        margin-bottom: 22px;
-    ">
-                            Lo conozco porque<br />
+                        <h2 style="font-size: 2.2rem; line-height: 1.25; margin-bottom: 22px;">
+                            Lo conozco porque<br>
                             <em>lo uso todos los días.</em>
                         </h2>
 
-                        <p style="
-        line-height: 1.7;
-        font-size: 1rem;
-        margin-bottom: 25px;
-        max-width: 520px;
-    ">
+                        <p style="line-height: 1.7; font-size: 1rem; margin-bottom: 25px; max-width: 520px;">
                             Cuando vives completamente fuera de la red eléctrica, terminas conociendo muy bien tu
                             sistema solar. En mi caso, utilizo equipos <strong>Felicity Solar</strong> para almacenar y
                             administrar la energía que necesito en la cabaña.
                         </p>
 
-                        <p style="
-        line-height: 1.7;
-        font-size: .95rem;
-        opacity: .75;
-        max-width: 520px;
-        margin: 0;
-    ">
+                        <p style="line-height: 1.7; font-size: 0.95rem; opacity: 0.75; max-width: 520px; margin: 0;">
                             No significa que sea la única opción que existe, pero es el equipo con el que tengo
                             experiencia directa y que me ha funcionado viviendo off grid. Por eso, cuando alguien me
                             pregunta qué instalaría para comenzar un sistema parecido, naturalmente parto
                             de configuraciones que ya conozco y uso.
                         </p>
-
                     </div>
 
 
                     <!-- PRODUCTOS -->
 
-                    <div style="
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: stretch;
-        ">
-
+                    <div data-solar-products style="
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 20px;
+            ">
 
                         <!-- BATERÍA -->
 
-                        <div style="
-                min-width: 0;
-                padding: 30px 22px 22px;
-                border: 1px solid rgba(128,128,128,.18);
-                border-radius: 16px;
-                text-align: center;
-                overflow: hidden;
-            ">
-
-                            <div style="
-                    height: 270px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 22px;
+                        <div data-solar-product style="
+                    min-width: 0;
+                    padding: 30px 22px 22px;
+                    border: 1px solid rgba(128, 128, 128, 0.18);
+                    border-radius: 16px;
+                    text-align: center;
+                    overflow: hidden;
                 ">
 
+                            <div data-solar-image style="
+                        height: 270px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 22px;
+                    ">
                                 <img src="https://www.felicitysolar.com/wp-content/uploads/2025/05/FLA48100_1-1.webp"
-                                    alt="Batería Felicity Solar FLA48100" loading="lazy" style="
+                                    alt="Batería Felicity Solar FLA48200" loading="lazy" style="
                             display: block;
-                            max-width: 100%;
-                            max-height: 100%;
-                            width: auto;
-                            height: auto;
+                            width: 100%;
+                            height: 100%;
                             object-fit: contain;
-                        " />
-
+                        ">
                             </div>
 
-                            <p class="eyebrow" style="
-                        justify-content: center;
-                        margin-bottom: 8px;
-                    ">
+                            <p class="eyebrow" style="justify-content: center; margin-bottom: 8px;">
                                 BATERÍA
                             </p>
 
-                            <h3 style="
-                    margin: 0 0 6px;
-                    font-size: 1.25rem;
-                ">
+                            <h3 style="margin: 0 0 6px; font-size: 1.25rem;">
                                 FLA48200
                             </h3>
 
-                            <p style="
-                    margin: 0;
-                    font-size: .85rem;
-                    opacity: .65;
-                ">
-                                10kwh
+                            <p style="margin: 0; font-size: 0.85rem; opacity: 0.65;">
+                                10 kWh
                             </p>
 
                         </div>
@@ -788,55 +754,41 @@
 
                         <!-- INVERSOR -->
 
-                        <div style="
-                min-width: 0;
-                padding: 30px 22px 22px;
-                border: 1px solid rgba(128,128,128,.18);
-                border-radius: 16px;
-                text-align: center;
-                overflow: hidden;
-            ">
-
-                            <div style="
-                    height: 270px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 22px;
+                        <div data-solar-product style="
+                    min-width: 0;
+                    padding: 30px 22px 22px;
+                    border: 1px solid rgba(128, 128, 128, 0.18);
+                    border-radius: 16px;
+                    text-align: center;
+                    overflow: hidden;
                 ">
 
+                            <div data-solar-image style="
+                        height: 270px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 22px;
+                    ">
                                 <img src="https://www.felicitysolar.com/wp-content/uploads/2025/08/IVEM5048-LV-1.png"
                                     alt="Inversor Felicity Solar IVEM5048-LV" loading="lazy" style="
                             display: block;
-                            max-width: 100%;
-                            max-height: 100%;
-                            width: auto;
-                            height: auto;
+                            width: 100%;
+                            height: 100%;
                             object-fit: contain;
-                        " />
-
+                        ">
                             </div>
 
-                            <p class="eyebrow" style="
-                        justify-content: center;
-                        margin-bottom: 8px;
-                    ">
+                            <p class="eyebrow" style="justify-content: center; margin-bottom: 8px;">
                                 INVERSOR
                             </p>
 
-                            <h3 style="
-                    margin: 0 0 6px;
-                    font-size: 1.25rem;
-                ">
+                            <h3 style="margin: 0 0 6px; font-size: 1.25rem;">
                                 IVEM5048-LV
                             </h3>
 
-                            <p style="
-                    margin: 0;
-                    font-size: .85rem;
-                    opacity: .65;
-                ">
-                                5kW
+                            <p style="margin: 0; font-size: 0.85rem; opacity: 0.65;">
+                                5 kW
                             </p>
 
                         </div>
@@ -846,18 +798,78 @@
                 </div>
 
 
-                <!-- RESPONSIVE SOLAMENTE PARA ESTE BLOQUE -->
-
                 <style>
+                    /* TABLET */
+
                     @media (max-width: 850px) {
-                        #energia .portfolio-section .portfolio-header {
-                            grid-template-columns: 1fr;
+                        #equipos-referencia .portfolio-header {
+                            grid-template-columns: 1fr !important;
+                            gap: 45px !important;
+                        }
+
+                        #equipos-referencia [data-solar-products] {
+                            max-width: 650px;
+                            width: 100%;
+                            margin: 0 auto;
                         }
                     }
 
+                    /* CELULAR */
+
                     @media (max-width: 520px) {
-                        #energia .portfolio-section .portfolio-header>div:last-child {
-                            grid-template-columns: 1fr !important;
+                        #equipos-referencia {
+                            padding: 40px 0 !important;
+                            margin-bottom: 60px !important;
+                        }
+
+                        #equipos-referencia .portfolio-header {
+                            gap: 32px !important;
+                        }
+
+                        #equipos-referencia .portfolio-header h2 {
+                            font-size: 1.8rem !important;
+                        }
+
+                        #equipos-referencia [data-solar-products] {
+                            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                            gap: 10px !important;
+                        }
+
+                        #equipos-referencia [data-solar-product] {
+                            padding: 16px 10px 15px !important;
+                            border-radius: 12px !important;
+                        }
+
+                        #equipos-referencia [data-solar-image] {
+                            height: 150px !important;
+                            margin-bottom: 14px !important;
+                        }
+
+                        #equipos-referencia [data-solar-product] .eyebrow {
+                            font-size: 0.65rem !important;
+                            margin-bottom: 6px !important;
+                        }
+
+                        #equipos-referencia [data-solar-product] h3 {
+                            font-size: 0.95rem !important;
+                            overflow-wrap: anywhere;
+                        }
+
+                        #equipos-referencia [data-solar-product]>p:last-child {
+                            font-size: 0.75rem !important;
+                        }
+                    }
+
+                    /* CELULARES MUY PEQUEÑOS */
+
+                    @media (max-width: 360px) {
+                        #equipos-referencia [data-solar-image] {
+                            height: 125px !important;
+                        }
+
+                        #equipos-referencia [data-solar-product] {
+                            padding-left: 7px !important;
+                            padding-right: 7px !important;
                         }
                     }
                 </style>
