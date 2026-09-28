@@ -6,7 +6,7 @@ Por eso tenía ganas de probar una carpa que pudiera utilizar precisamente en es
 
 Después de pasar una noche en ella, algo que me quedó bastante claro es que la **SANDIARIO MH2P** se siente como una carpa hecha para soportar este tipo de entorno.
 
-![Carpa SANDIARIO MH2P](https://sandiario.com/cdn/shop/files/RG-SA-01440-main1-900x900.webp?v=1768443918)
+![Carpa SANDIARIO MH2P](../Images/Productos/sandi.webp)
 
 ## Lo que más me sorprendió
 
