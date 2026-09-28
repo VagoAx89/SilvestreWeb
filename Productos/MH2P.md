@@ -37,13 +37,15 @@ Quería algo que pudiera tener aquí y utilizar cuando quisiera pasar una noche 
 
 Y para eso me parece una muy buena opción.
 
-## Una noche en medio del bosque
+## Una noche frente a la cabaña
 
-Lo interesante de esta prueba es que no monté la carpa en un jardín ni en un lugar con clima perfecto.
+Para esta prueba decidí montar la carpa en el patio, justo frente a mi cabaña y rodeado por el bosque.
 
-La armé aquí, **en medio del bosque**, precisamente cuando el clima llevaba varios días bastante complicado.
+La idea era pasar una noche completa dentro y ver cómo se comportaba en las condiciones que normalmente tengo por aquí.
 
-Habíamos tenido mucha neblina, lluvia y prácticamente nada de sol. Durante la prueba también comenzó a aumentar bastante el viento debido al clima que estaba afectando la zona.
+Esa noche había bastante humedad, neblina y el viento comenzó a aumentar considerablemente. Esto terminó siendo una buena oportunidad para comprobar qué tan cómoda y protegida se siente la carpa cuando el clima comienza a ponerse complicado.
+
+A pesar de estar a pocos metros de la cabaña, pasar la noche dentro fue una experiencia completamente diferente y me permitió probarla en un entorno real, con el frío, la humedad y el viento propios del bosque.
 
 Eso terminó convirtiéndose en una buena oportunidad para probar la carpa en condiciones mucho más cercanas al uso que realmente le daría.
 
